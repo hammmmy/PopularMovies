@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movieitem_list"
+    android:name="org.ipforsmartobjects.apps.popularmovies.MovieItemListFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:columnWidth="@dimen/movie_item_column_width"
+    app:layoutManager="GridLayoutManager"
+    tools:context="org.ipforsmartobjects.apps.popularmovies.MovieItemListActivity"
+    tools:listitem="@layout/movieitem_list_content" />
