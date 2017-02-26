@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies;
+package org.ipforsmartobjects.apps.popularmovies.movie;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.ipforsmartobjects.apps.popularmovies.R;
+import org.ipforsmartobjects.apps.popularmovies.data.Movie;
+import org.ipforsmartobjects.apps.popularmovies.detail.MovieItemDetailActivity;
 import org.ipforsmartobjects.apps.popularmovies.dummy.DummyContent;
 import org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView;
 
@@ -27,12 +30,22 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class MovieItemListActivity extends AppCompatActivity {
+public class MovieListActivity extends AppCompatActivity implements MoviesContract.View {
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    private MoviesContract.UserActionsListener mActionsListener;
+    /**
+     * Listener for clicks on notes in the RecyclerView.
+     */
+    MovieItemListener mItemListener = new MovieItemListener() {
+        @Override
+        public void onMovieClick(Movie clickedMovie) {
+            mActionsListener.openMovieDetails(clickedMovie);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,22 +65,42 @@ public class MovieItemListActivity extends AppCompatActivity {
             }
         });
 
-        AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) findViewById(R.id.movieitem_list);
+        AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) findViewById(R.id.movie_item_list);
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
         setupRecyclerView(recyclerView);
 
-        if (findViewById(R.id.movieitem_detail_container) != null) {
+        if (findViewById(R.id.movie_item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+        mActionsListener = new MoviesPresenter(this);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+    }
+
+    @Override
+    public void setProgressIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showMovies(List<Movie> movies) {
+
+    }
+
+    @Override
+    public void showMovieDetailUi(String movieId) {
+
+    }
+
+    public interface MovieItemListener {
+        void onMovieClick(Movie clickedMovie);
     }
 
     public class SimpleItemRecyclerViewAdapter
@@ -82,7 +115,7 @@ public class MovieItemListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.movieitem_list_content, parent, false);
+                    .inflate(R.layout.movie_list_content, parent, false);
             return new ViewHolder(view);
         }
 
@@ -101,7 +134,7 @@ public class MovieItemListActivity extends AppCompatActivity {
                         MovieItemDetailFragment fragment = new MovieItemDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.movieitem_detail_container, fragment)
+                                .replace(R.id.movie_item_detail_container, fragment)
                                 .commit();
                     } else {
                         Context context = v.getContext();

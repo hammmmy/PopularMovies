@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies;
+package org.ipforsmartobjects.apps.popularmovies.movie;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.ipforsmartobjects.apps.popularmovies.R;
+import org.ipforsmartobjects.apps.popularmovies.detail.MovieItemDetailActivity;
 import org.ipforsmartobjects.apps.popularmovies.dummy.DummyContent;
 
 /**
  * A fragment representing a single MovieItem detail screen.
- * This fragment is either contained in a {@link MovieItemListActivity}
+ * This fragment is either contained in a {@link MovieListActivity}
  * in two-pane mode (on tablets) or a {@link MovieItemDetailActivity}
  * on handsets.
  */
@@ -61,7 +63,7 @@ public class MovieItemDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.movieitem_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.movie_item_detail)).setText(mItem.details);
         }
 
         return rootView;

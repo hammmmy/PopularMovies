@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies;
+package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.ipforsmartobjects.apps.popularmovies.R;
+import org.ipforsmartobjects.apps.popularmovies.movie.MovieItemDetailFragment;
+import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
+
 /**
  * An activity representing a single MovieItem detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link MovieItemListActivity}.
+ * in a {@link MovieListActivity}.
  */
 public class MovieItemDetailActivity extends AppCompatActivity {
 
@@ -59,7 +63,7 @@ public class MovieItemDetailActivity extends AppCompatActivity {
             MovieItemDetailFragment fragment = new MovieItemDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movieitem_detail_container, fragment)
+                    .add(R.id.movie_item_detail_container, fragment)
                     .commit();
         }
     }
@@ -75,7 +79,7 @@ public class MovieItemDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, MovieItemListActivity.class));
+            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
