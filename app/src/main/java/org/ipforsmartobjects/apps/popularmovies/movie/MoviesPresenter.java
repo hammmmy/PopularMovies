@@ -3,7 +3,7 @@ package org.ipforsmartobjects.apps.popularmovies.movie;
 import android.support.annotation.NonNull;
 
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
-import org.ipforsmartobjects.apps.popularmovies.service.TmdbService;
+import org.ipforsmartobjects.apps.popularmovies.data.MovieRepository;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class MoviesPresenter implements MoviesContract.UserActionsListener {
 
     public MoviesPresenter(@NonNull MoviesContract.View moviesView) {
         mMoviesView = checkNotNull(moviesView, "moviesView cannot be null!");
-        mMoviesRepository = new TmdbService("test");
+        mMoviesRepository = new MovieRepository();
     }
 
     @Override

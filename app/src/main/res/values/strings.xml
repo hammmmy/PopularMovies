@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">PopularMovies</string>
+    <string name="tmdb_api_key" translatable="false">your API key here</string>
+    <string name="app_name">Popular Movies</string>
     <string name="title_movie_item_detail">MovieItem Detail</string>
 </resources>

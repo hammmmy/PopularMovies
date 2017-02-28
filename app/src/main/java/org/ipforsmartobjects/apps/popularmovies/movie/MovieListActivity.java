@@ -50,7 +50,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movieitem_list);
+        setContentView(R.layout.activity_movie_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +68,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) findViewById(R.id.movie_item_list);
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20); // for faster scroll (?)
         setupRecyclerView(recyclerView);
 
         if (findViewById(R.id.movie_item_detail_container) != null) {

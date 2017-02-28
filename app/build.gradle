@@ -43,6 +43,7 @@ dependencies {
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.squareup.picasso:picasso:${picassoVersion}"
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     compile "com.google.code.gson:gson:${gsonVersion}"
     compile "com.google.guava:guava:${guavaVersion}"
     testCompile 'junit:junit:4.12'

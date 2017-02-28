@@ -36,7 +36,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         mContext = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-//        View movieView = inflater.inflate(R.layout.movie_list_content, parent, false);
         MovieListItemBinding binding = MovieListItemBinding.inflate(inflater, parent, false);
         return new ViewHolder(binding, mItemListener);
     }

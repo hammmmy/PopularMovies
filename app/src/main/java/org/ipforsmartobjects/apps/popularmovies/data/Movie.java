@@ -20,20 +20,23 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
-    private String mId;
-    private String mOriginalTitle;
-    private String mPosterThumbnailPath;
-    private String mPlotSynopsis;
-    private String mUserRating;
-    private String mReleaseDate;
+
+    // keeping names same as tmdb names
+
+    private String id;
+    private String original_title;
+    private String poster_path;
+    private String overview;
+    private float vote_average;
+    private String release_date;
 
     private Movie(Parcel in) {
-        mId = in.readString();
-        mOriginalTitle = in.readString();
-        mPosterThumbnailPath = in.readString();
-        mPlotSynopsis = in.readString();
-        mUserRating = in.readString();
-        mReleaseDate = in.readString();
+        id = in.readString();
+        original_title = in.readString();
+        poster_path = in.readString();
+        overview = in.readString();
+        vote_average = in.readFloat();
+        release_date = in.readString();
     }
 
     @Override
@@ -43,59 +46,59 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mId);
-        parcel.writeString(mOriginalTitle);
-        parcel.writeString(mPosterThumbnailPath);
-        parcel.writeString(mPlotSynopsis);
-        parcel.writeString(mUserRating);
-        parcel.writeString(mReleaseDate);
+        parcel.writeString(id);
+        parcel.writeString(original_title);
+        parcel.writeString(poster_path);
+        parcel.writeString(overview);
+        parcel.writeFloat(vote_average);
+        parcel.writeString(release_date);
     }
 
     public String getId() {
-        return mId;
+        return id;
     }
 
     public void setId(String id) {
-        this.mId = id;
+        this.id = id;
     }
 
     public String getOriginalTitle() {
-        return mOriginalTitle;
+        return original_title;
     }
 
     public void setOriginalTitle(String title) {
-        this.mOriginalTitle = title;
+        this.original_title = title;
     }
 
     public String getPosterThumbnailPath() {
-        return mPosterThumbnailPath;
+        return poster_path;
     }
 
     public void setPosterThumbnailPath(String path) {
-        this.mPosterThumbnailPath = path;
+        this.poster_path = path;
     }
 
     public String getPlotSynopsis() {
-        return mPlotSynopsis;
+        return overview;
     }
 
     public void setPlotSynopsis(String plotSynopsis) {
-        this.mPlotSynopsis = plotSynopsis;
+        this.overview = plotSynopsis;
     }
 
-    public String getUserRating() {
-        return mUserRating;
+    public float getUserRating() {
+        return vote_average;
     }
 
-    public void setUserRating(String rating) {
-        this.mUserRating = rating;
+    public void setUserRating(float rating) {
+        this.vote_average = rating;
     }
 
     public String getReleaseDate() {
-        return mReleaseDate;
+        return release_date;
     }
 
     public void setReleaseDate(String releaseDate) {
-        this.mReleaseDate = releaseDate;
+        this.release_date = releaseDate;
     }
 }
