@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
-import org.ipforsmartobjects.apps.popularmovies.detail.MovieItemDetailActivity;
+import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailActivity;
+import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailFragment;
 import org.ipforsmartobjects.apps.popularmovies.dummy.DummyContent;
 import org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView;
+import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ import java.util.List;
  * An activity representing a list of MovieItems. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link MovieItemDetailActivity} representing
+ * lead to a {@link MovieDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
@@ -79,6 +81,8 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
             mTwoPane = true;
         }
         mActionsListener = new MoviesPresenter(this);
+
+        mActionsListener.loadMovies(false, Constants.POPULAR_MOVIES);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -96,8 +100,18 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     }
 
     @Override
+    public void showEmptyView() {
+
+    }
+
+    @Override
     public void showMovieDetailUi(String movieId) {
 
+    }
+
+    @Override
+    public Context getViewContext() {
+        return MovieListActivity.this;
     }
 
     public interface MovieItemListener {
@@ -131,16 +145,16 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(MovieItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-                        MovieItemDetailFragment fragment = new MovieItemDetailFragment();
+                        arguments.putString(MovieDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        MovieDetailFragment fragment = new MovieDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.movie_item_detail_container, fragment)
                                 .commit();
                     } else {
                         Context context = v.getContext();
-                        Intent intent = new Intent(context, MovieItemDetailActivity.class);
-                        intent.putExtra(MovieItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        Intent intent = new Intent(context, MovieDetailActivity.class);
+                        intent.putExtra(MovieDetailFragment.ARG_ITEM_ID, holder.mItem.id);
 
                         context.startActivity(intent);
                     }

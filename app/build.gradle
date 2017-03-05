@@ -29,7 +29,7 @@ ext {
     picassoVersion = '2.5.2'
     retrofitVersion = '2.2.0'
     gsonVersion = '2.8.0'
-    guavaVersion = '18.0'
+    guavaVersion = '21.0'
 }
 
 dependencies {

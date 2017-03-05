@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".detail.MovieItemDetailActivity"
+            android:name=".detail.MovieDetailActivity"
             android:label="@string/title_movie_item_detail"
             android:parentActivityName=".movie.MovieListActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -28,7 +28,6 @@
                 android:value="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity" />
         </activity>
 
-        <service android:name=".service.TmdbService" />
     </application>
 
 </manifest>

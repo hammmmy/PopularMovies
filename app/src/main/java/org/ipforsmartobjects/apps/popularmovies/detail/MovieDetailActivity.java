@@ -1,5 +1,6 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.ipforsmartobjects.apps.popularmovies.R;
-import org.ipforsmartobjects.apps.popularmovies.movie.MovieItemDetailFragment;
 import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
 
 /**
@@ -21,7 +21,7 @@ import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
  * item details are presented side-by-side with a list of items
  * in a {@link MovieListActivity}.
  */
-public class MovieItemDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity implements MovieDetailContract.View {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +58,9 @@ public class MovieItemDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MovieItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(MovieItemDetailFragment.ARG_ITEM_ID));
-            MovieItemDetailFragment fragment = new MovieItemDetailFragment();
+            arguments.putString(MovieDetailFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(MovieDetailFragment.ARG_ITEM_ID));
+            MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.movie_item_detail_container, fragment)
@@ -83,5 +83,20 @@ public class MovieItemDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setProgressIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showEmptyView() {
+
+    }
+
+    @Override
+    public Context getViewContext() {
+        return MovieDetailActivity.this;
     }
 }

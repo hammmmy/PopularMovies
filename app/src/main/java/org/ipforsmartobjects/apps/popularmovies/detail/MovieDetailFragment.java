@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies.movie;
+package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,16 +10,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.ipforsmartobjects.apps.popularmovies.R;
-import org.ipforsmartobjects.apps.popularmovies.detail.MovieItemDetailActivity;
 import org.ipforsmartobjects.apps.popularmovies.dummy.DummyContent;
+import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
 
 /**
  * A fragment representing a single MovieItem detail screen.
  * This fragment is either contained in a {@link MovieListActivity}
- * in two-pane mode (on tablets) or a {@link MovieItemDetailActivity}
+ * in two-pane mode (on tablets) or a {@link MovieDetailActivity}
  * on handsets.
  */
-public class MovieItemDetailFragment extends Fragment {
+public class MovieDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -35,7 +35,7 @@ public class MovieItemDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MovieItemDetailFragment() {
+    public MovieDetailFragment() {
     }
 
     @Override

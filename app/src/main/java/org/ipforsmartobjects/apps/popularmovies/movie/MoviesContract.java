@@ -4,14 +4,16 @@ package org.ipforsmartobjects.apps.popularmovies.movie;
  * Created by Hamid on 2/26/2017.
  */
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
+import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 
 import java.util.List;
 
 /**
- * This specifies the contract between the view and the presenter.
+ * This specifies the contract between the view, presenter, and the model.
  * reference : https://codelabs.developers.google.com/codelabs/android-testing/index.html
  */
 public interface MoviesContract {
@@ -21,31 +23,19 @@ public interface MoviesContract {
 
         void showMovies(List<Movie> movies);
 
+        void showEmptyView();
+
         void showMovieDetailUi(String movieId);
+
+        Context getViewContext();
     }
 
     interface UserActionsListener {
-        void loadMovies(boolean forceUpdate);
+        void loadMovies(boolean forceUpdate, @Constants.SortOrder int sortOrder);
 
         void openMovieDetails(@NonNull Movie requestedMovie);
 
         void changeSortOrder(String newSortOrder);
-    }
-
-    interface MoviesRepository {
-        void getMovies(@NonNull LoadMoviesCallback callback);
-
-        void getMovie(@NonNull String movieId, @NonNull MoviesRepository.GetMovieCallback callback);
-
-        void refreshData();
-
-        interface LoadMoviesCallback {
-            void onMoviesLoaded(List<Movie> Movies);
-        }
-
-        interface GetMovieCallback {
-            void onMovieLoaded(Movie Movie);
-        }
     }
 
 }
