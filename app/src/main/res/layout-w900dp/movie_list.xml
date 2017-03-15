@@ -17,7 +17,7 @@
     
     -->
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/movie_item_list"
         android:name="org.ipforsmartobjects.apps.popularmovies.MovieItemListFragment"
@@ -25,7 +25,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="GridLayoutManager"
         tools:context="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity"
         tools:listitem="@layout/movie_list_content" />
 

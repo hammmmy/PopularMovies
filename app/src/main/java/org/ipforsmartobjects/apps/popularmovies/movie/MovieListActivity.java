@@ -22,6 +22,7 @@ import org.ipforsmartobjects.apps.popularmovies.dummy.DummyContent;
 import org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView;
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,9 +40,6 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
      */
     private boolean mTwoPane;
     private MoviesContract.UserActionsListener mActionsListener;
-    /**
-     * Listener for clicks on notes in the RecyclerView.
-     */
     MovieItemListener mItemListener = new MovieItemListener() {
         @Override
         public void onMovieClick(Movie clickedMovie) {
@@ -86,7 +84,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new MovieAdapter(new ArrayList<Movie>(0), mItemListener));
     }
 
     @Override
