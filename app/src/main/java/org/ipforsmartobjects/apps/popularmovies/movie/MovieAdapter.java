@@ -44,10 +44,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Movie movie = mMovies.get(position);
 
-        Picasso.with(mContext).load(movie.getPosterThumbnailPath())
+        Picasso.with(mContext).load(movie.getPosterPath())
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(viewHolder.mMovieViewBinding.posterThumbnail);
-        viewHolder.mMovieViewBinding.id.setText(movie.getId());
+        viewHolder.mMovieViewBinding.movieTitle.setText(movie.getOriginalTitle());
         viewHolder.mMovieViewBinding.posterThumbnail.setContentDescription(movie.getOriginalTitle());
     }
 
@@ -78,6 +78,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             super(binding.getRoot());
             mItemListener = listener;
             itemView.setOnClickListener(this);
+            mMovieViewBinding = binding;
         }
 
         @Override

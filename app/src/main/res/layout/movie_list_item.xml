@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/posterThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/movie_item_column_height"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/gallery_thumb" />
+
+        <TextView
+            android:id="@+id/movieTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/gallery_thumb" />
-    </LinearLayout>
+            android:layout_below="@id/posterThumbnail"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:visibility="gone" />
+    </RelativeLayout>
 </layout>

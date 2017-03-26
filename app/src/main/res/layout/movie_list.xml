@@ -6,15 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView
-        android:id="@+id/movie_item_list"
-        android:name="org.ipforsmartobjects.apps.popularmovies.MovieItemListFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:columnWidth="@dimen/movie_item_column_width"
-        app:layoutManager="GridLayoutManager"
-        tools:context="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity"
-        tools:listitem="@layout/movie_list_content" />
+        android:layout_height="match_parent">
+
+        <org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView
+            android:id="@+id/movie_item_list"
+            android:name="org.ipforsmartobjects.apps.popularmovies.MovieItemListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="@dimen/movie_item_column_width"
+            app:layoutManager="GridLayoutManager"
+            tools:context="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity"
+            tools:listitem="@layout/movie_list_item" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/loading_failed"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:visibility="gone" />
+    </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

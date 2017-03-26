@@ -25,7 +25,7 @@ public interface MoviesContract {
 
         void showEmptyView();
 
-        void showMovieDetailUi(String movieId);
+        void showMovieDetailUi(Integer movieId);
 
         Context getViewContext();
     }

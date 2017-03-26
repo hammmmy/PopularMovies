@@ -13,7 +13,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Movie implements Parcelable {
-
     public final static Creator<Movie> CREATOR = new Creator<Movie>() {
 
 
@@ -44,6 +43,7 @@ public class Movie implements Parcelable {
         }
 
     };
+    public final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
@@ -88,7 +88,7 @@ public class Movie implements Parcelable {
     private Double voteAverage;
 
     public String getPosterPath() {
-        return posterPath;
+        return POSTER_BASE_URL + posterPath;
     }
 
     public void setPosterPath(String posterPath) {
