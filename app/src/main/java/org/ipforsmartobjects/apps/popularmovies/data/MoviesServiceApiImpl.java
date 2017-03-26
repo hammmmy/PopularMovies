@@ -32,35 +32,35 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
 
         switch (sortOrder) {
             case Constants.POPULAR_MOVIES:
-                Call<List<Movie>> popularMovieCall = mApi.getResultsSortedByPopularity(mApiKey);
-                popularMovieCall.enqueue(new Callback<List<Movie>>() {
+                Call<MovieResult> popularMovieCall = mApi.getResultsSortedByPopularity(mApiKey);
+                popularMovieCall.enqueue(new Callback<MovieResult>() {
                     @Override
-                    public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
                         if (response.isSuccessful()) {
-                            List<Movie> movies = response.body();
-                            callback.onLoaded(movies);
+                            MovieResult movieResult = response.body();
+                            callback.onLoaded(movieResult.getMovies());
                         } else {
                             callback.onLoadingFailed();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<List<Movie>> call, Throwable t) {
+                    public void onFailure(Call<MovieResult> call, Throwable t) {
                         callback.onLoadingFailed();
                     }
                 });
                 break;
             case Constants.HIGHEST_RATED:
-                Call<List<Movie>> call = mApi.getResultsSortedByRating(mApiKey);
-                call.enqueue(new Callback<List<Movie>>() {
+                Call<MovieResult> call = mApi.getResultsSortedByRating(mApiKey);
+                call.enqueue(new Callback<MovieResult>() {
                     @Override
-                    public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                        List<Movie> movies = response.body();
-                        callback.onLoaded(movies);
+                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                        MovieResult movieResult = response.body();
+                        callback.onLoaded(movieResult.getMovies());
                     }
 
                     @Override
-                    public void onFailure(Call<List<Movie>> call, Throwable t) {
+                    public void onFailure(Call<MovieResult> call, Throwable t) {
                         callback.onLoadingFailed();
                     }
                 });

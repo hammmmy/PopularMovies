@@ -1,8 +1,7 @@
 package org.ipforsmartobjects.apps.popularmovies.util;
 
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
-
-import java.util.List;
+import org.ipforsmartobjects.apps.popularmovies.data.MovieResult;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -27,8 +26,8 @@ public class TheMovieDbApiHelper {
     }
 
     public interface TmDbApi {
-        String BASE_URL = "https://api.themoviedb.org/3";
-        String MOVIE = "/movie";
+        String BASE_URL = "https://api.themoviedb.org/3/";
+        String MOVIE = "movie";
         String POPULAR = "/popular";
         String TOP_RATED = "/top_rated";
 
@@ -41,10 +40,10 @@ public class TheMovieDbApiHelper {
         final String API_KEY = "api_key";
 
         @GET(SORT_BY_POPULARITY_QUERY)
-        Call<List<Movie>> getResultsSortedByPopularity(@Query(API_KEY) String apiKey);
+        Call<MovieResult> getResultsSortedByPopularity(@Query(API_KEY) String apiKey);
 
         @GET(SORT_BY_RATING_QUERY)
-        Call<List<Movie>> getResultsSortedByRating(@Query(API_KEY) String apiKey);
+        Call<MovieResult> getResultsSortedByRating(@Query(API_KEY) String apiKey);
 
         @GET(MOVIE_WITH_ID_QUERY)
         Call<Movie> getMovieWithId(@Path("id") int movieId, @Query(API_KEY) String apiKey);

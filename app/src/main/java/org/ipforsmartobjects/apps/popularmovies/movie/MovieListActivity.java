@@ -56,15 +56,6 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) findViewById(R.id.movie_item_list);
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
@@ -81,6 +72,16 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         mActionsListener = new MoviesPresenter(this);
 
         mActionsListener.loadMovies(false, Constants.POPULAR_MOVIES);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                mActionsListener.loadMovies(false, Constants.POPULAR_MOVIES);
+            }
+        });
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {

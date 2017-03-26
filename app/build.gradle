@@ -10,13 +10,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled true
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
@@ -30,13 +23,13 @@ android {
 }
 
 ext {
-    supportLibVersion = '25.2.0'
+    supportLibVersion = '25.3.0'
     googlePlayServicesVersion = '10.0.1'
     firebaseVersion = '10.0.1'
     picassoVersion = '2.5.2'
     retrofitVersion = '2.2.0'
     gsonVersion = '2.8.0'
-    guavaVersion = '21.0'
+    guavaVersion = '18.0'
 }
 
 dependencies {
