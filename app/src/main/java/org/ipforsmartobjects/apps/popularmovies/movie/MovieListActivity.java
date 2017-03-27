@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -141,7 +143,8 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         } else {
             Intent intent = new Intent(MovieListActivity.this, MovieDetailActivity.class);
             intent.putExtra(Constants.DETAIL_MOVIE_ID, movieId);
-            startActivity(intent);
+            ActivityOptionsCompat trans = ActivityOptionsCompat.makeSceneTransitionAnimation(MovieListActivity.this);
+            ActivityCompat.startActivity(MovieListActivity.this, intent, trans.toBundle());
         }
     }
 
