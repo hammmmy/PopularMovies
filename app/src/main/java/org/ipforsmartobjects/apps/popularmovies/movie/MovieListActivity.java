@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -44,6 +46,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     private View mProgressBar;
     private View mListView;
     private View mEmptyView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,18 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         mProgressBar = findViewById(R.id.progress);
         mListView = findViewById(R.id.movie_item_list);
         mEmptyView = findViewById(R.id.empty_view);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+        mSwipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(MovieListActivity.this, R.color.colorPrimary),
+                ContextCompat.getColor(MovieListActivity.this, R.color.colorAccent),
+                ContextCompat.getColor(MovieListActivity.this, R.color.colorPrimaryDark));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mActionsListener.loadMovies(true, Constants.POPULAR_MOVIES);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) findViewById(R.id.movie_item_list);
         assert recyclerView != null;
@@ -83,6 +98,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 mActionsListener.loadMovies(false, Constants.POPULAR_MOVIES);
+
             }
         });
     }
