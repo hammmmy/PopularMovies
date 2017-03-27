@@ -1,6 +1,7 @@
 package org.ipforsmartobjects.apps.popularmovies.movie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.View;
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailActivity;
+import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailFragment;
 import org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView;
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 
@@ -128,7 +130,19 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
 
     @Override
     public void showMovieDetailUi(Integer movieId) {
-
+        if (mTwoPane) {
+            Bundle arguments = new Bundle();
+            arguments.putInt(Constants.DETAIL_MOVIE_ID, movieId);
+            MovieDetailFragment fragment = new MovieDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.movie_item_detail_container, fragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(MovieListActivity.this, MovieDetailActivity.class);
+            intent.putExtra(Constants.DETAIL_MOVIE_ID, movieId);
+            startActivity(intent);
+        }
     }
 
     @Override

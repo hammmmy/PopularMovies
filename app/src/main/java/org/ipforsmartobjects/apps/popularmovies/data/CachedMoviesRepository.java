@@ -100,5 +100,6 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     @Override
     public void clearCache() {
         mCachedPopularMovies = null;
+        mCachedHighestRatingMovies = null;
     }
 }

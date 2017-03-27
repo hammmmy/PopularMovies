@@ -1,6 +1,5 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +20,7 @@ import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
  * item details are presented side-by-side with a list of items
  * in a {@link MovieListActivity}.
  */
-public class MovieDetailActivity extends AppCompatActivity implements MovieDetailContract.View {
+public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +82,5 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void setProgressIndicator(boolean active) {
-
-    }
-
-    @Override
-    public void showEmptyView() {
-
-    }
-
-    @Override
-    public Context getViewContext() {
-        return MovieDetailActivity.this;
     }
 }

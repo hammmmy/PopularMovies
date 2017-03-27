@@ -1,5 +1,9 @@
 package org.ipforsmartobjects.apps.popularmovies.util;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 import org.ipforsmartobjects.apps.popularmovies.data.MovieResult;
 
@@ -17,9 +21,13 @@ import retrofit2.http.Query;
 public class TheMovieDbApiHelper {
 
     public static TmDbApi getApi() {
+        // change to camelCase
+        Gson camelCaseGson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TheMovieDbApiHelper.TmDbApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(camelCaseGson))
                 .build();
         TheMovieDbApiHelper.TmDbApi tmDbApi = retrofit.create(TheMovieDbApiHelper.TmDbApi.class);
         return tmDbApi;

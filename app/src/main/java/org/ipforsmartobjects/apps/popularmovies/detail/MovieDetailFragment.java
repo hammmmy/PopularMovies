@@ -1,6 +1,7 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -19,7 +20,7 @@ import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
  * in two-pane mode (on tablets) or a {@link MovieDetailActivity}
  * on handsets.
  */
-public class MovieDetailFragment extends Fragment {
+public class MovieDetailFragment extends Fragment implements MovieDetailContract.View {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -67,5 +68,20 @@ public class MovieDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void setProgressIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showEmptyView() {
+
+    }
+
+    @Override
+    public Context getViewContext() {
+        return getActivity();
     }
 }
