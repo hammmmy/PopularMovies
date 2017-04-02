@@ -37,15 +37,12 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                 Observable<MovieResult> popularMovies = mApi.getResultsSortedByPopularity(mApiKey);
                 popularMovies.subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .onErrorReturn(throwable -> {
+                        .onErrorResumeNext(throwable -> {
                             callback.onLoadingFailed();
-                            return new MovieResult();
                         })
                         .subscribe(movieResult -> {
                             if (movieResult != null && movieResult.getMovies() != null) {
                                 callback.onLoaded(movieResult.getMovies());
-                            } else {
-                                callback.onLoadingFailed();
                             }
                         });
 
@@ -72,15 +69,12 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                 Observable<MovieResult> topRatedMovies = mApi.getResultsSortedByRating(mApiKey);
                 topRatedMovies.subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .onErrorReturn(throwable -> {
+                        .onErrorResumeNext(throwable -> {
                             callback.onLoadingFailed();
-                            return new MovieResult();
                         })
                         .subscribe(movieResult -> {
                             if (movieResult != null && movieResult.getMovies() != null) {
                                 callback.onLoaded(movieResult.getMovies());
-                            } else {
-                                callback.onLoadingFailed();
                             }
                         });
 
@@ -112,12 +106,13 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
         Observable<Movie> movie = mApi.getMovieWithId(movieId, mApiKey);
         movie.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn(throwable -> {
+                .onErrorResumeNext(throwable -> {
                     callback.onLoadingFailed();
-                    return new Movie();
                 })
                 .subscribe(fetchedMovie -> {
-                    callback.onLoaded(fetchedMovie);
+                    if (fetchedMovie != null) {
+                        callback.onLoaded(fetchedMovie);
+                    }
                 });
         // retrofit 2 without Rx code
 //        call.enqueue(new Callback<Movie>() {
