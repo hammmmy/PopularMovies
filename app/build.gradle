@@ -10,6 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
@@ -20,16 +23,22 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
-    supportLibVersion = '25.3.0'
+    supportLibVersion = '25.3.1'
     googlePlayServicesVersion = '10.0.1'
     firebaseVersion = '10.0.1'
     picassoVersion = '2.5.2'
     retrofitVersion = '2.2.0'
     gsonVersion = '2.8.0'
     guavaVersion = '18.0'
+    rxAndroid = '2.0.1'
+    rxJava = '2.0.1'
 }
 
 dependencies {
@@ -44,7 +53,10 @@ dependencies {
     compile "com.squareup.picasso:picasso:${picassoVersion}"
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
     compile "com.google.code.gson:gson:${gsonVersion}"
     compile "com.google.guava:guava:${guavaVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:${rxAndroid}"
+    compile "io.reactivex.rxjava2:rxjava:${rxJava}"
     testCompile 'junit:junit:4.12'
 }
