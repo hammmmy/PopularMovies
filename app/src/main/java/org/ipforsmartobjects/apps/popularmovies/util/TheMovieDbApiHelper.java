@@ -26,10 +26,11 @@ public class TheMovieDbApiHelper {
     public static final String MOVIE = "movie";
     public static final String POPULAR = "/popular";
     public static final String TOP_RATED = "/top_rated";
+    public static final String MOVIE_ID = "/{id}";
     public static final String SORT_BY_POPULARITY_QUERY = MOVIE + POPULAR;
     public static final String SORT_BY_RATING_QUERY = MOVIE + TOP_RATED;
-    public static final String MOVIE_WITH_ID_QUERY = MOVIE;
-    public static final String MOVIE_EXTRAS_QUERY = MOVIE + "?append_to_response=trailers,reviews,images,release_dates,credits";
+    public static final String MOVIE_WITH_ID_QUERY = MOVIE + MOVIE_ID;
+    public static final String MOVIE_EXTRAS_QUERY = MOVIE + MOVIE_ID + "?append_to_response=trailers,reviews,images,release_dates,credits";
     public static final String API_KEY = "api_key";
 
     // use Retrofit 2 without Rx

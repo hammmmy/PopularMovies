@@ -21,8 +21,8 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
     private final MovieDetailContract.View mMoviesDetailView;
 
     public MovieDetailPresenter(@NonNull MovieDetailContract.View movieDetailView) {
-        mMoviesRepository = Injection.provideMoviesRepository(this);
         mMoviesDetailView = checkNotNull(movieDetailView, "movieDetailView cannot be null!");
+        mMoviesRepository = Injection.provideMoviesRepository(this);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
     }
 
     private void showMovie(Movie movie) {
-
+        mMoviesDetailView.showMovie(movie);
     }
 
     @Override

@@ -142,7 +142,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
                     .commit();
         } else {
             Intent intent = new Intent(MovieListActivity.this, MovieDetailActivity.class);
-            intent.putExtra(Constants.DETAIL_MOVIE_ID, movieId);
+            intent.putExtra(MovieDetailFragment.ARG_ITEM_ID, movieId);
             ActivityOptionsCompat trans = ActivityOptionsCompat.makeSceneTransitionAnimation(MovieListActivity.this);
             ActivityCompat.startActivity(MovieListActivity.this, intent, trans.toBundle());
         }
