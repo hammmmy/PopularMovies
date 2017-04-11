@@ -15,7 +15,9 @@ public interface RepositoryContract {
     interface MoviesRepository {
         void loadMovies(@NonNull LoadMoviesCallback callback, @Constants.SortOrder int sortOrder);
 
-        void getMovie(@NonNull int movieId, @NonNull GetMovieCallback callback);
+        void getMovie(@NonNull int movieId, @NonNull GetMovieCallback callback); // get movie stored in cache
+
+        void getMovieDetailExtras(@NonNull int movieId, @NonNull GetMovieCallback callback); // get movie details from server
 
         void clearCache();
 

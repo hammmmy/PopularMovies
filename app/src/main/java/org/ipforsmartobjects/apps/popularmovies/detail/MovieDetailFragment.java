@@ -67,7 +67,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         mBinding = FragmentMovieDetailBinding.inflate(inflater, container, false);
         mAppBarLayout = mBinding.toolbarLayout;
         mProgressBar = mBinding.movieDetailViewLayout.progress;
-        mDetailView = mBinding.movieDetailViewLayout.movieItemDetail;
+        mDetailView = mBinding.movieDetailViewLayout.overview;
         mEmptyView = mBinding.movieDetailViewLayout.emptyView;
 
         Toolbar toolbar = mBinding.detailToolbar;
@@ -107,7 +107,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         if (mAppBarLayout != null) {
             mAppBarLayout.setTitle(mItem.getOriginalTitle());
         }
-        mBinding.movieDetailViewLayout.movieItemDetail.setText(mItem.getOverview());
+        mBinding.movieDetailViewLayout.overview.setText(mItem.getOverview());
         Picasso.with(getActivity()).load(movie.getBackdropPath())
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(mBinding.backdropImage);

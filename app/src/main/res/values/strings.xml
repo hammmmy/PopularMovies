@@ -1,7 +1,11 @@
 <resources>
-    <string name="tmdb_api_key" translatable="false">your API key here</string>
+    <string name="tmdb_api_key" translatable="false">INSERT API KEY HERE</string>
     <string name="app_name">Popular Movies</string>
     <string name="title_movie_item_detail">MovieItem Detail</string>
     <string name="loading_failed">Loading Failed. Refresh to load again</string>
+    <string name="trailers">Trailers</string>
+    <string name="story_line">Story Line</string>
+    <string name="cast">Cast</string>
+    <string name="reviews">Reviews</string>
 
 </resources>

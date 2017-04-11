@@ -34,7 +34,7 @@ public class TheMovieDbApiHelper {
     public static final String API_KEY = "api_key";
 
     // use Retrofit 2 without Rx
-    public static TmDbRxApi getApi() {
+    public static TmDbApi getApi() {
         // change to camelCase
         Gson camelCaseGson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -43,7 +43,7 @@ public class TheMovieDbApiHelper {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(camelCaseGson))
                 .build();
-        TheMovieDbApiHelper.TmDbRxApi tmDbApi = retrofit.create(TheMovieDbApiHelper.TmDbRxApi.class);
+        TheMovieDbApiHelper.TmDbApi tmDbApi = retrofit.create(TheMovieDbApiHelper.TmDbApi.class);
         return tmDbApi;
     }
 

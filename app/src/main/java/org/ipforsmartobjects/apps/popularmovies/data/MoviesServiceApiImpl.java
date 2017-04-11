@@ -25,8 +25,6 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
 
         mApiKey = mInteractor.getViewContext().getString(R.string.tmdb_api_key);
         mApi = TheMovieDbApiHelper.getRxApi();
-        // retrofit 2 without Rx code
-        //mApi = TheMovieDbApiHelper.getApi();
     }
 
     @Override
@@ -45,25 +43,6 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                                 callback.onLoaded(movieResult.getMovies());
                             }
                         });
-
-                // retrofit 2 without Rx code
-//                popularMovieCall.enqueue(new Callback<MovieResult>() {
-//                    @Override
-//                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-//                        if (response.isSuccessful()) {
-//                            MovieResult movieResult = response.body();
-//                            callback.onLoaded(movieResult.getMovies());
-//                        } else {
-//                            callback.onLoadingFailed();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<MovieResult> call, Throwable t) {
-//                        callback.onLoadingFailed();
-//                    }
-//                });
-
                 break;
             case Constants.HIGHEST_RATED:
                 Observable<MovieResult> topRatedMovies = mApi.getResultsSortedByRating(mApiKey);
@@ -77,24 +56,6 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                                 callback.onLoaded(movieResult.getMovies());
                             }
                         });
-
-                // retrofit 2 without Rx code
-//                topRatedMovies.enqueue(new Callback<MovieResult>() {
-//                    @Override
-//                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-//                        if (response.isSuccessful()) {
-//                            MovieResult movieResult = response.body();
-//                            callback.onLoaded(movieResult.getMovies());
-//                        } else {
-//                            callback.onLoadingFailed();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<MovieResult> call, Throwable t) {
-//                        callback.onLoadingFailed();
-//                    }
-//                });
                 break;
         }
 
@@ -114,18 +75,5 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                         callback.onLoaded(fetchedMovie);
                     }
                 });
-        // retrofit 2 without Rx code
-//        call.enqueue(new Callback<Movie>() {
-//            @Override
-//            public void onResponse(Call<Movie> call, Response<Movie> response) {
-//                Movie movie = response.body();
-//                callback.onLoaded(movie);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Movie> call, Throwable t) {
-//                callback.onLoadingFailed();
-//            }
-//        });
     }
 }

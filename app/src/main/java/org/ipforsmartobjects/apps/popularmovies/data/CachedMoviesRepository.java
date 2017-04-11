@@ -7,7 +7,9 @@ import com.google.common.collect.ImmutableList;
 
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -22,6 +24,9 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     List<Movie> mCachedPopularMovies;
     @VisibleForTesting
     List<Movie> mCachedHighestRatingMovies;
+    @VisibleForTesting
+    Map<Integer, Movie> mMovieCache = new HashMap<>();
+
 
     public CachedMoviesRepository(@NonNull MoviesServiceApi moviesServiceApi) {
         mMoviesServiceApi = checkNotNull(moviesServiceApi);
@@ -64,9 +69,16 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                 if (sortOrder == Constants.POPULAR_MOVIES) {
                     mCachedPopularMovies = ImmutableList.copyOf(movies);
                     callback.onMoviesLoaded(mCachedPopularMovies);
+                    for (Movie popular : mCachedPopularMovies) {
+                        mMovieCache.put(popular.getId(), popular);
+                    }
                 } else if (sortOrder == Constants.HIGHEST_RATED) {
                     mCachedHighestRatingMovies = ImmutableList.copyOf(movies);
                     callback.onMoviesLoaded(mCachedHighestRatingMovies);
+                    for (Movie highestRated : mCachedHighestRatingMovies) {
+                        mMovieCache.put(highestRated.getId(), highestRated);
+                    }
+
                 } else if (sortOrder == Constants.FAVORITES) {
                     // TODO: 3/25/2017 add favorites for project 2
                 }
@@ -83,23 +95,35 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     public void getMovie(@NonNull final int movieId, @NonNull final GetMovieCallback callback) {
         checkNotNull(movieId);
         checkNotNull(callback);
-        // Load movies matching the id always directly from the API.
-        mMoviesServiceApi.getMovie(movieId, new MoviesServiceApi.MoviesServiceCallback<Movie>() {
-            @Override
-            public void onLoaded(Movie movie) {
-                callback.onMovieLoaded(movie);
-            }
+        if (mMovieCache.get(movieId) == null) {
+            // Load movie matching the id directly from the API.
+            mMoviesServiceApi.getMovie(movieId, new MoviesServiceApi.MoviesServiceCallback<Movie>() {
+                @Override
+                public void onLoaded(Movie movie) {
+                    callback.onMovieLoaded(movie);
+                }
 
-            @Override
-            public void onLoadingFailed() {
-                callback.onLoadingFailed();
-            }
-        });
+                @Override
+                public void onLoadingFailed() {
+                    callback.onLoadingFailed();
+                }
+            });
+        } else {
+            callback.onMovieLoaded(mMovieCache.get(movieId));
+        }
+
+    }
+
+    @Override
+    public void getMovieDetailExtras(@NonNull int movieId, @NonNull GetMovieCallback callback) {
+
     }
 
     @Override
     public void clearCache() {
         mCachedPopularMovies = null;
         mCachedHighestRatingMovies = null;
+        mMovieCache.clear();
+
     }
 }
