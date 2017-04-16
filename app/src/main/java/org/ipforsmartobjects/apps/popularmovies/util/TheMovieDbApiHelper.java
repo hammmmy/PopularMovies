@@ -70,11 +70,11 @@ public class TheMovieDbApiHelper {
         Call<MovieResult> getResultsSortedByRating(@Query(API_KEY) String apiKey);
 
         @GET(MOVIE_WITH_ID_QUERY)
-        Call<Movie> getMovieWithId(@Path("id") int movieId, @Query(API_KEY) String apiKey);
+        Call<Movie> getMovieWithId(@Path("id") long movieId, @Query(API_KEY) String apiKey);
 
         // TODO: 3/28/2017 add movie trailers, reviews, and cast
         @GET(MOVIE_EXTRAS_QUERY)
-        Call<Movie> getMovieExtraWithId(@Path("id") int movieId, @Query(API_KEY) String apiKey);
+        Call<Movie> getMovieExtraWithId(@Path("id") long movieId, @Query(API_KEY) String apiKey);
     }
 
     public interface TmDbRxApi {
@@ -85,11 +85,11 @@ public class TheMovieDbApiHelper {
         Observable<MovieResult> getResultsSortedByRating(@Query(API_KEY) String apiKey);
 
         @GET(MOVIE_WITH_ID_QUERY)
-        Observable<Movie> getMovieWithId(@Path("id") int movieId, @Query(API_KEY) String apiKey);
+        Observable<Movie> getMovieWithId(@Path("id") long movieId, @Query(API_KEY) String apiKey);
 
         // TODO: 3/28/2017 add movie trailers, reviews, and cast
         @GET(MOVIE_EXTRAS_QUERY)
-        Observable<Movie> getMovieExtraWithId(@Path("id") int movieId, @Query(API_KEY) String apiKey);
+        Observable<Movie> getMovieExtraWithId(@Path("id") long movieId, @Query(API_KEY) String apiKey);
     }
 
 

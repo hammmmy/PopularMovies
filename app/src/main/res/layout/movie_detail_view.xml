@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
@@ -18,24 +19,24 @@
                 <RelativeLayout
                     android:id="@+id/posterContainer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/movie_item_column_height">
 
                     <ImageView
                         android:id="@+id/poster"
                         android:layout_width="@dimen/movie_item_column_width"
-                        android:layout_height="@dimen/movie_item_column_height"
+                        android:layout_height="match_parent"
                         tools:src="@drawable/test_poster" />
 
-                    <HorizontalScrollView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/photo_layout"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/movie_item_column_height">
-
-                        <FrameLayout
-                            android:id="@+id/photo_container"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></FrameLayout>
-
-                    </HorizontalScrollView>
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/poster"
+                        android:columnWidth="@dimen/movie_item_column_width"
+                        android:orientation="horizontal"
+                        app:layoutManager="GridLayoutManager"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:spanCount="1" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -110,17 +111,16 @@
                         android:text="@string/trailers"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-                    <HorizontalScrollView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/movie_item_column_height"
-                        android:layout_below="@+id/trailer_layout_label">
-
-                        <FrameLayout
+                    <android.support.v7.widget.RecyclerView
                             android:id="@+id/trailer_layout"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></FrameLayout>
-                    </HorizontalScrollView>
-
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/trailer_layout_label"
+                        android:columnWidth="@dimen/movie_item_column_width"
+                        android:orientation="horizontal"
+                        app:layoutManager="GridLayoutManager"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:spanCount="1" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -137,16 +137,16 @@
                         android:text="@string/cast"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-                    <HorizontalScrollView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/cast_layout"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/movie_item_column_height"
-                        android:layout_below="@+id/cast_layout_label">
-
-                        <FrameLayout
-                            android:id="@+id/cast_layout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></FrameLayout>
-                    </HorizontalScrollView>
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/cast_layout_label"
+                        android:columnWidth="@dimen/movie_item_column_width"
+                        android:orientation="horizontal"
+                        app:layoutManager="GridLayoutManager"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:spanCount="1" />
 
                 </RelativeLayout>
 
@@ -164,16 +164,16 @@
                         android:text="@string/reviews"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-                    <HorizontalScrollView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/review_layout"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/movie_item_column_height"
-                        android:layout_below="@+id/review_layout_label">
-
-                        <FrameLayout
-                            android:id="@+id/review_layout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></FrameLayout>
-                    </HorizontalScrollView>
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/review_layout_label"
+                        android:columnWidth="@dimen/movie_item_column_width"
+                        android:orientation="horizontal"
+                        app:layoutManager="GridLayoutManager"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:spanCount="1" />
 
                 </RelativeLayout>
             </RelativeLayout>

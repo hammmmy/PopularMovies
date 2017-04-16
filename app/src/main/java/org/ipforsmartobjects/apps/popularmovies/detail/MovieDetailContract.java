@@ -23,6 +23,6 @@ public interface MovieDetailContract {
     }
 
     interface UserActionsListener {
-        void openMovie(@Nullable int movieId);
+        void openMovie(@Nullable long movieId);
     }
 }

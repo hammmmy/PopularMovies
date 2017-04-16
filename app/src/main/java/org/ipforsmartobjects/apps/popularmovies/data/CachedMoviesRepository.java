@@ -25,7 +25,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     @VisibleForTesting
     List<Movie> mCachedHighestRatingMovies;
     @VisibleForTesting
-    Map<Integer, Movie> mMovieCache = new HashMap<>();
+    Map<Long, Movie> mMovieCache = new HashMap<>();
 
 
     public CachedMoviesRepository(@NonNull MoviesServiceApi moviesServiceApi) {
@@ -92,7 +92,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     }
 
     @Override
-    public void getMovie(@NonNull final int movieId, @NonNull final GetMovieCallback callback) {
+    public void getMovie(@NonNull final long movieId, @NonNull final GetMovieCallback callback) {
         checkNotNull(movieId);
         checkNotNull(callback);
         if (mMovieCache.get(movieId) == null) {
@@ -115,7 +115,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     }
 
     @Override
-    public void getMovieDetailExtras(@NonNull int movieId, @NonNull GetMovieCallback callback) {
+    public void getMovieDetailExtras(@NonNull long movieId, @NonNull GetMovieCallback callback) {
 
     }
 

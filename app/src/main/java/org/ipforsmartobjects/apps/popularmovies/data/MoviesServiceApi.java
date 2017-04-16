@@ -12,7 +12,7 @@ public interface MoviesServiceApi {
 
     void getAllMovies(MoviesServiceCallback<List<Movie>> callback, @Constants.SortOrder int sortOrder);
 
-    void getMovie(int movieId, MoviesServiceCallback<Movie> callback);
+    void getMovie(long movieId, MoviesServiceCallback<Movie> callback);
 
     interface MoviesServiceCallback<T> {
 

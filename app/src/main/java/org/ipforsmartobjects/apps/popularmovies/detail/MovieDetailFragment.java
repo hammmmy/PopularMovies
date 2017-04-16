@@ -33,7 +33,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     public static final String ARG_ITEM_ID = "item_id";
 
     private Movie mItem;
-    private int mItemId = -1;
+    private long mItemId = -1;
     private MovieDetailContract.UserActionsListener mActionsListener;
     private CollapsingToolbarLayout mAppBarLayout;
 
@@ -56,7 +56,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         mActionsListener = new MovieDetailPresenter(this);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getInt(ARG_ITEM_ID);
+            mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
 
     }

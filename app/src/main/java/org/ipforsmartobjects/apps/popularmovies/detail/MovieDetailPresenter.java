@@ -26,7 +26,7 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
     }
 
     @Override
-    public void openMovie(@Nullable int movieId) {
+    public void openMovie(@Nullable long movieId) {
         if (movieId == -1) {
             mMoviesDetailView.showEmptyView();
             return;
