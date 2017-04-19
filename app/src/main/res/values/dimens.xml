@@ -6,4 +6,6 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="movie_item_column_width">120dp</dimen>
     <dimen name="movie_item_column_height">180dp</dimen>
+    <dimen name="trailer_preview_column_width">180dp</dimen>
+    <dimen name="trailer_preview_column_height">135dp</dimen>
 </resources>

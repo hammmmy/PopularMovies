@@ -95,7 +95,12 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     public void getMovie(@NonNull final long movieId, @NonNull final GetMovieCallback callback) {
         checkNotNull(movieId);
         checkNotNull(callback);
-        if (mMovieCache.get(movieId) == null) {
+
+        if (mMovieCache.get(movieId) != null) {
+            // show immediately available data first
+            callback.onMovieLoaded(mMovieCache.get(movieId));
+        }
+
             // Load movie matching the id directly from the API.
             mMoviesServiceApi.getMovie(movieId, new MoviesServiceApi.MoviesServiceCallback<Movie>() {
                 @Override
@@ -108,9 +113,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                     callback.onLoadingFailed();
                 }
             });
-        } else {
-            callback.onMovieLoaded(mMovieCache.get(movieId));
-        }
+
 
     }
 

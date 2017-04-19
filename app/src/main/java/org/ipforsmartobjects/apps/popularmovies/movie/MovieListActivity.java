@@ -94,7 +94,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        mListAdapter = new MovieAdapter(new ArrayList<Movie>(0), mItemListener);
+        mListAdapter = new MovieAdapter(new ArrayList<>(0), mItemListener);
         recyclerView.setAdapter(mListAdapter);
     }
 

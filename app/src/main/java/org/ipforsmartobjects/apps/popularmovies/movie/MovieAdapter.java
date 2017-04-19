@@ -1,6 +1,7 @@
 package org.ipforsmartobjects.apps.popularmovies.movie;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         Picasso.with(mContext).load(movie.getPosterPath())
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(viewHolder.mMovieViewBinding.posterThumbnail);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            viewHolder.mMovieViewBinding.posterThumbnail.setTransitionName("poster");
+        }
         viewHolder.mMovieViewBinding.movieTitle.setText(movie.getOriginalTitle());
         viewHolder.mMovieViewBinding.posterThumbnail.setContentDescription(movie.getOriginalTitle());
     }

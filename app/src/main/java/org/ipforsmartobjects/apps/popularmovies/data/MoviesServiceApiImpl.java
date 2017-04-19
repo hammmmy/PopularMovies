@@ -63,8 +63,7 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
 
     @Override
     public void getMovie(long movieId, final MoviesServiceCallback<Movie> callback) {
-        // TODO: 3/5/2017 implement movie detail
-        Observable<Movie> movie = mApi.getMovieWithId(movieId, mApiKey);
+        Observable<Movie> movie = mApi.getMovieDetails(movieId, mApiKey);
         movie.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(throwable -> {

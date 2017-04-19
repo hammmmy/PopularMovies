@@ -6,6 +6,7 @@ package org.ipforsmartobjects.apps.popularmovies.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class Movie implements Parcelable {
             instance.reviews = ((Reviews) in.readValue((Reviews.class.getClassLoader())));
             instance.images = ((Images) in.readValue((Images.class.getClassLoader())));
             instance.credits = ((Credits) in.readValue((Credits.class.getClassLoader())));
+            instance.recommendations = ((Recommendations) in.readValue((Recommendations.class.getClassLoader())));
+            instance.similar = ((Similar) in.readValue((Similar.class.getClassLoader())));
+            instance.videos = ((Videos) in.readValue((Videos.class.getClassLoader())));
             return instance;
         }
 
@@ -47,8 +51,10 @@ public class Movie implements Parcelable {
         }
 
     };
-    public final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
-    public final String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w342/";
+    public static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
+    public static final String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w342/";
+    public static final String YOUTUBE_VIDEO_PREVIEW_PREFIX = "http://img.youtube.com/vi/";
+    public static final String YOUTUBE_VIDEO_PREVIEW_SUFFIX = "/0.jpg";
     private Boolean adult;
     private String backdropPath;
     private List<Genre> genres = null;
@@ -70,6 +76,9 @@ public class Movie implements Parcelable {
     private Reviews reviews;
     private Images images;
     private Credits credits;
+    private Recommendations recommendations;
+    private Similar similar;
+    private Videos videos;
 
     public Boolean getAdult() {
         return adult;
@@ -87,8 +96,15 @@ public class Movie implements Parcelable {
         this.backdropPath = backdropPath;
     }
 
-    public List<Genre> getGenres() {
-        return genres;
+    public String getGenres() {
+        StringBuilder sb = new StringBuilder();
+        if (genres != null) {
+            for (Movie.Genre genre : genres) {
+                sb.append(genre.getName()).append(" ");
+            }
+            return sb.toString();
+        }
+        return "";
     }
 
     public void setGenres(List<Genre> genres) {
@@ -159,8 +175,14 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    public Long getRuntime() {
-        return runtime;
+    public String getRuntime() {
+        if (runtime == null) {
+            return "";
+        }
+        long hours = runtime / 60;
+        long minutes = runtime % 60;
+
+        return "" + hours + "h " + minutes + "m";
     }
 
     public void setRuntime(Long runtime) {
@@ -176,7 +198,7 @@ public class Movie implements Parcelable {
     }
 
     public String getTagline() {
-        return tagline;
+        return (tagline == null) ? "" : tagline;
     }
 
     public void setTagline(String tagline) {
@@ -191,8 +213,8 @@ public class Movie implements Parcelable {
         this.title = title;
     }
 
-    public Double getVoteAverage() {
-        return voteAverage;
+    public String getVoteAverage() {
+        return "" + voteAverage;
     }
 
     public void setVoteAverage(Double voteAverage) {
@@ -239,6 +261,30 @@ public class Movie implements Parcelable {
         this.credits = credits;
     }
 
+    public Recommendations getRecommendations() {
+        return recommendations;
+    }
+
+    public void setRecommendations(Recommendations recommendations) {
+        this.recommendations = recommendations;
+    }
+
+    public Similar getSimilar() {
+        return similar;
+    }
+
+    public void setSimilar(Similar similar) {
+        this.similar = similar;
+    }
+
+    public Videos getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Videos videos) {
+        this.videos = videos;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(adult);
         dest.writeValue(backdropPath);
@@ -261,6 +307,9 @@ public class Movie implements Parcelable {
         dest.writeValue(reviews);
         dest.writeValue(images);
         dest.writeValue(credits);
+        dest.writeValue(recommendations);
+        dest.writeValue(similar);
+        dest.writeValue(videos);
     }
 
     public int describeContents() {
@@ -277,7 +326,6 @@ public class Movie implements Parcelable {
             })
             public Genre createFromParcel(Parcel in) {
                 Genre instance = new Genre();
-                instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
                 instance.name = ((String) in.readValue((String.class.getClassLoader())));
                 return instance;
             }
@@ -287,16 +335,8 @@ public class Movie implements Parcelable {
             }
 
         };
-        private Long id;
         private String name;
 
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
 
         public String getName() {
             return name;
@@ -307,7 +347,6 @@ public class Movie implements Parcelable {
         }
 
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeValue(id);
             dest.writeValue(name);
         }
 
@@ -327,7 +366,7 @@ public class Movie implements Parcelable {
             })
             public Trailers createFromParcel(Parcel in) {
                 Trailers instance = new Trailers();
-                in.readList(instance.youtube, (Youtube.class.getClassLoader()));
+                in.readList(instance.youtube, (Trailer.class.getClassLoader()));
                 return instance;
             }
 
@@ -336,13 +375,13 @@ public class Movie implements Parcelable {
             }
 
         };
-        private List<Youtube> youtube = null;
+        private List<Trailer> youtube = null;
 
-        public List<Youtube> getYoutube() {
+        public List<Trailer> getYoutube() {
             return youtube;
         }
 
-        public void setYoutube(List<Youtube> youtube) {
+        public void setYoutube(List<Trailer> youtube) {
             this.youtube = youtube;
         }
 
@@ -356,22 +395,22 @@ public class Movie implements Parcelable {
 
     }
 
-    public static class Youtube implements Parcelable {
-        public final static Parcelable.Creator<Youtube> CREATOR = new Creator<Youtube>() {
+    public static class Trailer implements Parcelable {
+        public final static Parcelable.Creator<Trailer> CREATOR = new Creator<Trailer>() {
 
 
             @SuppressWarnings({
                     "unchecked"
             })
-            public Youtube createFromParcel(Parcel in) {
-                Youtube instance = new Youtube();
+            public Trailer createFromParcel(Parcel in) {
+                Trailer instance = new Trailer();
                 instance.name = ((String) in.readValue((String.class.getClassLoader())));
                 instance.source = ((String) in.readValue((String.class.getClassLoader())));
                 return instance;
             }
 
-            public Youtube[] newArray(int size) {
-                return (new Youtube[size]);
+            public Trailer[] newArray(int size) {
+                return (new Trailer[size]);
             }
 
         };
@@ -394,6 +433,10 @@ public class Movie implements Parcelable {
             this.source = source;
         }
 
+        public String getTrailerPreviewPath() {
+            return TextUtils.isEmpty(source) ? null : YOUTUBE_VIDEO_PREVIEW_PREFIX + source + YOUTUBE_VIDEO_PREVIEW_SUFFIX;
+        }
+
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeValue(name);
             dest.writeValue(source);
@@ -414,7 +457,7 @@ public class Movie implements Parcelable {
             })
             public Reviews createFromParcel(Parcel in) {
                 Reviews instance = new Reviews();
-                in.readList(instance.results, (Result.class.getClassLoader()));
+                in.readList(instance.results, (Review.class.getClassLoader()));
                 return instance;
             }
 
@@ -423,13 +466,13 @@ public class Movie implements Parcelable {
             }
 
         };
-        private List<Result> results = null;
+        private List<Review> results = null;
 
-        public List<Result> getResults() {
+        public List<Review> getResults() {
             return results;
         }
 
-        public void setResults(List<Result> results) {
+        public void setResults(List<Review> results) {
             this.results = results;
         }
 
@@ -444,40 +487,29 @@ public class Movie implements Parcelable {
 
     }
 
-    public static class Result implements Parcelable {
+    public static class Review implements Parcelable {
 
-        public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {
+        public final static Parcelable.Creator<Review> CREATOR = new Creator<Review>() {
 
 
             @SuppressWarnings({
                     "unchecked"
             })
-            public Result createFromParcel(Parcel in) {
-                Result instance = new Result();
-                instance.id = ((String) in.readValue((String.class.getClassLoader())));
+            public Review createFromParcel(Parcel in) {
+                Review instance = new Review();
                 instance.author = ((String) in.readValue((String.class.getClassLoader())));
                 instance.content = ((String) in.readValue((String.class.getClassLoader())));
-                instance.url = ((String) in.readValue((String.class.getClassLoader())));
                 return instance;
             }
 
-            public Result[] newArray(int size) {
-                return (new Result[size]);
+            public Review[] newArray(int size) {
+                return (new Review[size]);
             }
 
         };
-        private String id;
         private String author;
         private String content;
-        private String url;
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
 
         public String getAuthor() {
             return author;
@@ -495,19 +527,10 @@ public class Movie implements Parcelable {
             this.content = content;
         }
 
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
 
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeValue(id);
             dest.writeValue(author);
             dest.writeValue(content);
-            dest.writeValue(url);
         }
 
         public int describeContents() {
@@ -516,71 +539,49 @@ public class Movie implements Parcelable {
 
     }
 
-    public static class Backdrop implements Parcelable {
+    public static class Picture implements Parcelable {
 
-        //        private Long height;
-//        private Long width;
-        public final static Parcelable.Creator<Backdrop> CREATOR = new Creator<Backdrop>() {
+        public final static Parcelable.Creator<Picture> CREATOR = new Creator<Picture>() {
 
 
             @SuppressWarnings({
                     "unchecked"
             })
-            public Backdrop createFromParcel(Parcel in) {
-                Backdrop instance = new Backdrop();
-//                instance.aspectRatio = ((Double) in.readValue((Double.class.getClassLoader())));
+            public Picture createFromParcel(Parcel in) {
+                Picture instance = new Picture();
+                instance.aspectRatio = ((Double) in.readValue((Double.class.getClassLoader())));
                 instance.filePath = ((String) in.readValue((String.class.getClassLoader())));
-//                instance.height = ((Long) in.readValue((Long.class.getClassLoader())));
-//                instance.width = ((Long) in.readValue((Long.class.getClassLoader())));
                 return instance;
             }
 
-            public Backdrop[] newArray(int size) {
-                return (new Backdrop[size]);
+            public Picture[] newArray(int size) {
+                return (new Picture[size]);
             }
 
         };
-        //        private Double aspectRatio;
+        private Double aspectRatio;
         private String filePath;
 
-//        public Double getAspectRatio() {
-//            return aspectRatio;
-//        }
-//
-//        public void setAspectRatio(Double aspectRatio) {
-//            this.aspectRatio = aspectRatio;
-//        }
+        public Double getAspectRatio() {
+            return aspectRatio;
+        }
+
+        public void setAspectRatio(Double aspectRatio) {
+            this.aspectRatio = aspectRatio;
+        }
 
         public String getFilePath() {
-            return filePath;
+            return POSTER_BASE_URL + filePath;
         }
 
         public void setFilePath(String filePath) {
             this.filePath = filePath;
         }
 
-//        public Long getHeight() {
-//            return height;
-//        }
-//
-//        public void setHeight(Long height) {
-//            this.height = height;
-//        }
-
-
-//        public Long getWidth() {
-//            return width;
-//        }
-//
-//        public void setWidth(Long width) {
-//            this.width = width;
-//        }
 
         public void writeToParcel(Parcel dest, int flags) {
-//            dest.writeValue(aspectRatio);
+            dest.writeValue(aspectRatio);
             dest.writeValue(filePath);
-//            dest.writeValue(height);
-//            dest.writeValue(width);
         }
 
         public int describeContents() {
@@ -631,7 +632,7 @@ public class Movie implements Parcelable {
         }
 
         public String getProfilePath() {
-            return profilePath;
+            return POSTER_BASE_URL + profilePath;
         }
 
         public void setProfilePath(String profilePath) {
@@ -659,8 +660,8 @@ public class Movie implements Parcelable {
             })
             public Images createFromParcel(Parcel in) {
                 Images instance = new Images();
-                in.readList(instance.backdrops, (Backdrop.class.getClassLoader()));
-                in.readList(instance.posters, (Backdrop.class.getClassLoader()));
+                in.readList(instance.backdrops, (Picture.class.getClassLoader()));
+                in.readList(instance.posters, (Picture.class.getClassLoader()));
                 return instance;
             }
 
@@ -669,22 +670,22 @@ public class Movie implements Parcelable {
             }
 
         };
-        private List<Backdrop> backdrops = null;
-        private List<Backdrop> posters = null;
+        private List<Picture> backdrops = null;
+        private List<Picture> posters = null;
 
-        public List<Backdrop> getBackdrops() {
+        public List<Picture> getBackdrops() {
             return backdrops;
         }
 
-        public void setBackdrops(List<Backdrop> backdrops) {
+        public void setBackdrops(List<Picture> backdrops) {
             this.backdrops = backdrops;
         }
 
-        public List<Backdrop> getPosters() {
+        public List<Picture> getPosters() {
             return posters;
         }
 
-        public void setPosters(List<Backdrop> posters) {
+        public void setPosters(List<Picture> posters) {
             this.posters = posters;
         }
 
@@ -729,6 +730,385 @@ public class Movie implements Parcelable {
 
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeList(cast);
+        }
+
+        public int describeContents() {
+            return 0;
+        }
+
+    }
+
+    public static class Recommendations implements Parcelable {
+        public final static Parcelable.Creator<Recommendations> CREATOR = new Creator<Recommendations>() {
+
+
+            @SuppressWarnings({
+                    "unchecked"
+            })
+            public Recommendations createFromParcel(Parcel in) {
+                Recommendations instance = new Recommendations();
+                in.readList(instance.results, (Result.class.getClassLoader()));
+                return instance;
+            }
+
+            public Recommendations[] newArray(int size) {
+                return (new Recommendations[size]);
+            }
+
+        };
+        private List<Result> results = null;
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+
+
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeList(results);
+        }
+
+        public int describeContents() {
+            return 0;
+        }
+
+    }
+
+    // kind of movie object .. can be used for Recommendations and Similar Movies
+    public static class Result implements Parcelable {
+        public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {
+
+
+            @SuppressWarnings({
+                    "unchecked"
+            })
+            public Result createFromParcel(Parcel in) {
+                Result instance = new Result();
+                instance.adult = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
+                instance.backdropPath = ((String) in.readValue((String.class.getClassLoader())));
+                in.readList(instance.genreIds, (java.lang.Long.class.getClassLoader()));
+                instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
+                instance.originalLanguage = ((String) in.readValue((String.class.getClassLoader())));
+                instance.originalTitle = ((String) in.readValue((String.class.getClassLoader())));
+                instance.overview = ((String) in.readValue((String.class.getClassLoader())));
+                instance.releaseDate = ((String) in.readValue((String.class.getClassLoader())));
+                instance.posterPath = ((String) in.readValue((String.class.getClassLoader())));
+                instance.popularity = ((Double) in.readValue((Double.class.getClassLoader())));
+                instance.title = ((String) in.readValue((String.class.getClassLoader())));
+                instance.video = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
+                instance.voteAverage = ((Double) in.readValue((Double.class.getClassLoader())));
+                instance.voteCount = ((Long) in.readValue((Long.class.getClassLoader())));
+                return instance;
+            }
+
+            public Result[] newArray(int size) {
+                return (new Result[size]);
+            }
+
+        };
+        private Boolean adult;
+        private String backdropPath;
+        private List<Long> genreIds = null;
+        private Long id;
+        private String originalLanguage;
+        private String originalTitle;
+        private String overview;
+        private String releaseDate;
+        private String posterPath;
+        private Double popularity;
+        private String title;
+        private Boolean video;
+        private Double voteAverage;
+        private Long voteCount;
+
+        public Boolean getAdult() {
+            return adult;
+        }
+
+        public void setAdult(Boolean adult) {
+            this.adult = adult;
+        }
+
+        public String getBackdropPath() {
+            return backdropPath;
+        }
+
+        public void setBackdropPath(String backdropPath) {
+            this.backdropPath = backdropPath;
+        }
+
+        public List<Long> getGenreIds() {
+            return genreIds;
+        }
+
+        public void setGenreIds(List<Long> genreIds) {
+            this.genreIds = genreIds;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getOriginalLanguage() {
+            return originalLanguage;
+        }
+
+        public void setOriginalLanguage(String originalLanguage) {
+            this.originalLanguage = originalLanguage;
+        }
+
+        public String getOriginalTitle() {
+            return originalTitle;
+        }
+
+        public void setOriginalTitle(String originalTitle) {
+            this.originalTitle = originalTitle;
+        }
+
+        public String getOverview() {
+            return overview;
+        }
+
+        public void setOverview(String overview) {
+            this.overview = overview;
+        }
+
+        public String getReleaseDate() {
+            return releaseDate;
+        }
+
+        public void setReleaseDate(String releaseDate) {
+            this.releaseDate = releaseDate;
+        }
+
+        public String getPosterPath() {
+            return posterPath;
+        }
+
+        public void setPosterPath(String posterPath) {
+            this.posterPath = posterPath;
+        }
+
+        public Double getPopularity() {
+            return popularity;
+        }
+
+        public void setPopularity(Double popularity) {
+            this.popularity = popularity;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public Boolean getVideo() {
+            return video;
+        }
+
+        public void setVideo(Boolean video) {
+            this.video = video;
+        }
+
+        public Double getVoteAverage() {
+            return voteAverage;
+        }
+
+        public void setVoteAverage(Double voteAverage) {
+            this.voteAverage = voteAverage;
+        }
+
+        public Long getVoteCount() {
+            return voteCount;
+        }
+
+        public void setVoteCount(Long voteCount) {
+            this.voteCount = voteCount;
+        }
+
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeValue(adult);
+            dest.writeValue(backdropPath);
+            dest.writeList(genreIds);
+            dest.writeValue(id);
+            dest.writeValue(originalLanguage);
+            dest.writeValue(originalTitle);
+            dest.writeValue(overview);
+            dest.writeValue(releaseDate);
+            dest.writeValue(posterPath);
+            dest.writeValue(popularity);
+            dest.writeValue(title);
+            dest.writeValue(video);
+            dest.writeValue(voteAverage);
+            dest.writeValue(voteCount);
+        }
+
+        public int describeContents() {
+            return 0;
+        }
+
+    }
+
+    public static class Similar implements Parcelable {
+        public final static Parcelable.Creator<Similar> CREATOR = new Creator<Similar>() {
+
+
+            @SuppressWarnings({
+                    "unchecked"
+            })
+            public Similar createFromParcel(Parcel in) {
+                Similar instance = new Similar();
+                in.readList(instance.results, (Result.class.getClassLoader()));
+                return instance;
+            }
+
+            public Similar[] newArray(int size) {
+                return (new Similar[size]);
+            }
+
+        };
+        private List<Result> results = null;
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeList(results);
+        }
+
+        public int describeContents() {
+            return 0;
+        }
+
+    }
+
+    public static class Videos implements Parcelable {
+        public final static Parcelable.Creator<Videos> CREATOR = new Creator<Videos>() {
+
+
+            @SuppressWarnings({
+                    "unchecked"
+            })
+            public Videos createFromParcel(Parcel in) {
+                Videos instance = new Videos();
+                in.readList(instance.videos, (Video.class.getClassLoader()));
+                return instance;
+            }
+
+            public Videos[] newArray(int size) {
+                return (new Videos[size]);
+            }
+
+        };
+        private List<Video> videos = null;
+
+        public List<Video> getVideos() {
+            return videos;
+        }
+
+        public void setVideos(List<Video> videos) {
+            this.videos = videos;
+        }
+
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeList(videos);
+        }
+
+        public int describeContents() {
+            return 0;
+        }
+
+    }
+
+    public static class Video implements Parcelable {
+        public final static Parcelable.Creator<Video> CREATOR = new Creator<Video>() {
+
+
+            @SuppressWarnings({
+                    "unchecked"
+            })
+            public Video createFromParcel(Parcel in) {
+                Video instance = new Video();
+                instance.key = ((String) in.readValue((String.class.getClassLoader())));
+                instance.name = ((String) in.readValue((String.class.getClassLoader())));
+                instance.site = ((String) in.readValue((String.class.getClassLoader())));
+                instance.size = ((Long) in.readValue((Long.class.getClassLoader())));
+                instance.type = ((String) in.readValue((String.class.getClassLoader())));
+                return instance;
+            }
+
+            public Video[] newArray(int size) {
+                return (new Video[size]);
+            }
+
+        };
+        private String key; // "key": "XaE_9pfybL4",
+        private String name; // name": "Official Trailer #2 [UK]",
+        private String site; // "site": "YouTube",
+        private Long size; // "size": 1080,
+        private String type; // "type": "Trailer"
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSite() {
+            return site;
+        }
+
+        public void setSite(String site) {
+            this.site = site;
+        }
+
+        public Long getSize() {
+            return size;
+        }
+
+        public void setSize(Long size) {
+            this.size = size;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeValue(key);
+            dest.writeValue(name);
+            dest.writeValue(site);
+            dest.writeValue(size);
+            dest.writeValue(type);
         }
 
         public int describeContents() {

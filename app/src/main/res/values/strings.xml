@@ -6,6 +6,10 @@
     <string name="trailers">Trailers</string>
     <string name="story_line">Story Line</string>
     <string name="cast">Cast</string>
-    <string name="reviews">Reviews</string>
+    <string name="videos">Reviews</string>
+    <string name="photos">Photos</string>
+    <string name="ranking">User Rating</string>
+    <string name="duration">Duration</string>
+    <string name="genre">Genre</string>
 
 </resources>

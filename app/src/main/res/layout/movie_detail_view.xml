@@ -27,16 +27,14 @@
                         android:layout_height="match_parent"
                         tools:src="@drawable/test_poster" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/photo_layout"
+                    <TextView
+                        android:id="@+id/tagline"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@+id/poster"
-                        android:columnWidth="@dimen/movie_item_column_width"
-                        android:orientation="horizontal"
-                        app:layoutManager="GridLayoutManager"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                        app:spanCount="1" />
+                        android:padding="@dimen/text_margin"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        tools:text="Lannisters never pay anything" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -47,30 +45,98 @@
                     android:background="@color/colorPrimary"
                     android:padding="@dimen/text_margin">
 
-                    <TextView
-                        android:id="@+id/ranking"
+                    <LinearLayout
+                        android:id="@+id/ranking_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        tools:text="7.0 Rating" />
+                        <TextView
+                            android:id="@+id/ranking_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:labelFor="@+id/ranking"
+                            android:text="@string/ranking"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-                    <TextView
-                        android:id="@+id/duration"
+                        <TextView
+                            android:id="@+id/ranking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_margin"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            tools:text="7.0 Rating" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/duration_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/ranking"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        tools:text="112 minutes" />
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/genre"
+                        <TextView
+                            android:id="@+id/duration_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/duration"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_margin"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            tools:text="1h 50m" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/genre_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/duration"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        tools:text="Animation Comedy" />
+                        android:layout_below="@+id/ranking_container"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/genre_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/genre"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/genre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_margin"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            tools:text="Animation Comedy" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/release_date_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/ranking_container"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/release_date_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Release Date"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/release_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_margin"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            tools:text="2017" />
+                    </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -112,8 +178,8 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <android.support.v7.widget.RecyclerView
-                            android:id="@+id/trailer_layout"
-                            android:layout_width="wrap_content"
+                        android:id="@+id/trailer_layout"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/trailer_layout_label"
                         android:columnWidth="@dimen/movie_item_column_width"
@@ -125,7 +191,7 @@
 
                 <RelativeLayout
                     android:id="@+id/cast_container"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/trailer_container"
                     android:padding="@dimen/text_margin">
@@ -145,6 +211,7 @@
                         android:columnWidth="@dimen/movie_item_column_width"
                         android:orientation="horizontal"
                         app:layoutManager="GridLayoutManager"
+
                         app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         app:spanCount="1" />
 
@@ -161,7 +228,7 @@
                         android:id="@+id/review_layout_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/reviews"
+                        android:text="@string/videos"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <android.support.v7.widget.RecyclerView
@@ -169,6 +236,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/review_layout_label"
+                        android:columnWidth="@dimen/movie_item_column_width"
+                        android:orientation="horizontal"
+                        app:layoutManager="GridLayoutManager"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:spanCount="1" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/photo_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/review_container"
+                    android:padding="@dimen/text_margin">
+
+                    <TextView
+                        android:id="@+id/photo_layout_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/photos"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/photo_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/photo_layout_label"
                         android:columnWidth="@dimen/movie_item_column_width"
                         android:orientation="horizontal"
                         app:layoutManager="GridLayoutManager"

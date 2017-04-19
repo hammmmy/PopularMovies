@@ -81,7 +81,7 @@ public class MoviesServiceApiImplWithoutRx implements MoviesServiceApi {
     @Override
     public void getMovie(long movieId, final MoviesServiceCallback<Movie> callback) {
         // TODO: 3/5/2017 implement movie detail
-        Call<Movie> movie = mApi.getMovieWithId(movieId, mApiKey);
+        Call<Movie> movie = mApi.getMovieDetails(movieId, mApiKey);
 
         // retrofit 2 without Rx code
         movie.enqueue(new Callback<Movie>() {
