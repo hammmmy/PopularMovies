@@ -25,6 +25,10 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     @VisibleForTesting
     List<Movie> mCachedHighestRatingMovies;
     @VisibleForTesting
+    List<Movie> mCachedUpComingMovies;
+    @VisibleForTesting
+    List<Movie> mCachedNowPlayingMovies;
+    @VisibleForTesting
     Map<Long, Movie> mMovieCache = new HashMap<>();
 
 
@@ -55,6 +59,22 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                 }
                 break;
 
+            case Constants.UPCOMING:
+                if (mCachedUpComingMovies == null) {
+                    getMovies(callback, sortOrder);
+                } else {
+                    callback.onMoviesLoaded(mCachedUpComingMovies);
+                }
+                break;
+
+            case Constants.NOW_PLAYING:
+                if (mCachedNowPlayingMovies == null) {
+                    getMovies(callback, sortOrder);
+                } else {
+                    callback.onMoviesLoaded(mCachedNowPlayingMovies);
+                }
+                break;
+
             case Constants.FAVORITES:
                 // TODO: 3/25/2017   add favorites for project 2
                 break;
@@ -79,6 +99,20 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                         mMovieCache.put(highestRated.getId(), highestRated);
                     }
 
+                } else if (sortOrder == Constants.UPCOMING) {
+                    mCachedUpComingMovies = ImmutableList.copyOf(movies);
+                    callback.onMoviesLoaded(mCachedUpComingMovies);
+                    for (Movie upcoming : mCachedUpComingMovies) {
+                        mMovieCache.put(upcoming.getId(), upcoming);
+                    }
+
+                } else if (sortOrder == Constants.NOW_PLAYING) {
+                    mCachedNowPlayingMovies = ImmutableList.copyOf(movies);
+                    callback.onMoviesLoaded(mCachedNowPlayingMovies);
+                    for (Movie nowPlaying : mCachedNowPlayingMovies) {
+                        mMovieCache.put(nowPlaying.getId(), nowPlaying);
+                    }
+
                 } else if (sortOrder == Constants.FAVORITES) {
                     // TODO: 3/25/2017 add favorites for project 2
                 }
@@ -101,18 +135,18 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
             callback.onMovieLoaded(mMovieCache.get(movieId));
         }
 
-            // Load movie matching the id directly from the API.
-            mMoviesServiceApi.getMovie(movieId, new MoviesServiceApi.MoviesServiceCallback<Movie>() {
-                @Override
-                public void onLoaded(Movie movie) {
-                    callback.onMovieLoaded(movie);
-                }
+        // Load movie matching the id directly from the API.
+        mMoviesServiceApi.getMovie(movieId, new MoviesServiceApi.MoviesServiceCallback<Movie>() {
+            @Override
+            public void onLoaded(Movie movie) {
+                callback.onMovieLoaded(movie);
+            }
 
-                @Override
-                public void onLoadingFailed() {
-                    callback.onLoadingFailed();
-                }
-            });
+            @Override
+            public void onLoadingFailed() {
+                callback.onLoadingFailed();
+            }
+        });
 
 
     }

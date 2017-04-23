@@ -74,6 +74,48 @@ public class MoviesServiceApiImplWithoutRx implements MoviesServiceApi {
                     }
                 });
                 break;
+
+            case Constants.UPCOMING:
+                Call<MovieResult> upcomingMoviesCall = mApi.getUpcomingMovies(mApiKey);
+                // retrofit 2 without Rx code
+                upcomingMoviesCall.enqueue(new Callback<MovieResult>() {
+                    @Override
+                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                        if (response.isSuccessful()) {
+                            MovieResult movieResult = response.body();
+                            callback.onLoaded(movieResult.getMovies());
+                        } else {
+                            callback.onLoadingFailed();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieResult> call, Throwable t) {
+                        callback.onLoadingFailed();
+                    }
+                });
+                break;
+
+            case Constants.NOW_PLAYING:
+                Call<MovieResult> nowPlayingMoviesCall = mApi.getNowPlayingMovies(mApiKey);
+                // retrofit 2 without Rx code
+                nowPlayingMoviesCall.enqueue(new Callback<MovieResult>() {
+                    @Override
+                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                        if (response.isSuccessful()) {
+                            MovieResult movieResult = response.body();
+                            callback.onLoaded(movieResult.getMovies());
+                        } else {
+                            callback.onLoadingFailed();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieResult> call, Throwable t) {
+                        callback.onLoadingFailed();
+                    }
+                });
+                break;
         }
 
     }

@@ -3,6 +3,7 @@
     <string name="app_name">Popular Movies</string>
     <string name="title_movie_item_detail">MovieItem Detail</string>
     <string name="loading_failed">Loading Failed. Refresh to load again</string>
+    <string name="loading_failed_detail">Loading Failed</string>
     <string name="trailers">Trailers</string>
     <string name="story_line">Story Line</string>
     <string name="cast">Cast</string>
@@ -11,5 +12,12 @@
     <string name="ranking">User Rating</string>
     <string name="duration">Duration</string>
     <string name="genre">Genre</string>
-
+    <string name="settings">Preferences</string>
+    <string name="dialog_based_preferences">Movie Preferences</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="highest_rated_movies">Highest Rated Movies</string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="sort_list_preference_title">Movie Type</string>
+    <string name="now_playing_movies">Now Playing</string>
 </resources>

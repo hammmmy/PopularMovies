@@ -27,9 +27,16 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity" />
+                android:value=".movie.MovieListActivity" />
         </activity>
 
+        <activity
+            android:name=".settings.PrefsActivity"
+            android:label="@string/settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".movie.MovieListActivity" />
+        </activity>
     </application>
 
 </manifest>

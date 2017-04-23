@@ -26,12 +26,18 @@ public class TheMovieDbApiHelper {
     public static final String MOVIE = "movie";
     public static final String POPULAR = "/popular";
     public static final String TOP_RATED = "/top_rated";
+    public static final String UPCOMING = "/upcoming";
+    public static final String NOW_PLAYING = "/now_playing";
+
     public static final String MOVIE_ID = "/{id}";
     public static final String SORT_BY_POPULARITY_QUERY = MOVIE + POPULAR;
     public static final String SORT_BY_RATING_QUERY = MOVIE + TOP_RATED;
+    public static final String UPCOMING_MOVIES_QUERY = MOVIE + UPCOMING;
+    public static final String NOW_PLAYING_MOVIES_QUERY = MOVIE + NOW_PLAYING;
+
     //    public static final String MOVIE_WITH_ID_QUERY = MOVIE + MOVIE_ID;
     public static final String MOVIE_DETAILS_QUERY = MOVIE + MOVIE_ID + "?append_to_response=trailers,reviews,images,credits,recommendations,similar,videos";
-    // TODO: 4/19/2017 add pojo for recommendations similar and video and add recyclerview etc
+
     public static final String API_KEY = "api_key";
 
     // use Retrofit 2 without Rx
@@ -70,10 +76,15 @@ public class TheMovieDbApiHelper {
         @GET(SORT_BY_RATING_QUERY)
         Call<MovieResult> getResultsSortedByRating(@Query(API_KEY) String apiKey);
 
+        @GET(UPCOMING_MOVIES_QUERY)
+        Call<MovieResult> getUpcomingMovies(@Query(API_KEY) String apiKey);
+
+        @GET(NOW_PLAYING_MOVIES_QUERY)
+        Call<MovieResult> getNowPlayingMovies(@Query(API_KEY) String apiKey);
+
 //        @GET(MOVIE_WITH_ID_QUERY)
 //        Call<Movie> getMovieWithId(@Path("id") long movieId, @Query(API_KEY) String apiKey);
 
-        // TODO: 3/28/2017 add movie trailers, reviews, and cast
         @GET(MOVIE_DETAILS_QUERY)
         Call<Movie> getMovieDetails(@Path("id") long movieId, @Query(API_KEY) String apiKey);
     }
@@ -85,10 +96,15 @@ public class TheMovieDbApiHelper {
         @GET(SORT_BY_RATING_QUERY)
         Observable<MovieResult> getResultsSortedByRating(@Query(API_KEY) String apiKey);
 
+        @GET(UPCOMING_MOVIES_QUERY)
+        Observable<MovieResult> getUpcomingMovies(@Query(API_KEY) String apiKey);
+
+        @GET(NOW_PLAYING_MOVIES_QUERY)
+        Observable<MovieResult> getNowPlayingMovies(@Query(API_KEY) String apiKey);
+
 //        @GET(MOVIE_WITH_ID_QUERY)
 //        Observable<Movie> getMovieWithId(@Path("id") long movieId, @Query(API_KEY) String apiKey);
 
-        // TODO: 3/28/2017 add movie trailers, reviews, and cast
         @GET(MOVIE_DETAILS_QUERY)
         Observable<Movie> getMovieDetails(@Path("id") long movieId, @Query(API_KEY) String apiKey);
     }

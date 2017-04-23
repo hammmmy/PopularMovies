@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/movie_detail_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -282,11 +283,11 @@
 
         <TextView
             android:id="@+id/empty_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:text="@string/loading_failed"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="@string/loading_failed_detail"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:visibility="gone" />
     </RelativeLayout>
 </layout>

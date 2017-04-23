@@ -56,6 +56,34 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                                 callback.onLoaded(movieResult.getMovies());
                             }
                         });
+
+                break;
+            case Constants.UPCOMING:
+                Observable<MovieResult> upcomingMovies = mApi.getUpcomingMovies(mApiKey);
+                upcomingMovies.subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .onErrorResumeNext(throwable -> {
+                            callback.onLoadingFailed();
+                        })
+                        .subscribe(movieResult -> {
+                            if (movieResult != null && movieResult.getMovies() != null) {
+                                callback.onLoaded(movieResult.getMovies());
+                            }
+                        });
+                break;
+
+            case Constants.NOW_PLAYING:
+                Observable<MovieResult> nowPlayingMovies = mApi.getNowPlayingMovies(mApiKey);
+                nowPlayingMovies.subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .onErrorResumeNext(throwable -> {
+                            callback.onLoadingFailed();
+                        })
+                        .subscribe(movieResult -> {
+                            if (movieResult != null && movieResult.getMovies() != null) {
+                                callback.onLoaded(movieResult.getMovies());
+                            }
+                        });
                 break;
         }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string-array name="movie_entries_list_preference">
+        <item>@string/popular_movies</item>
+        <item>@string/highest_rated_movies</item>
+        <item>@string/upcoming_movies</item>
+        <item>@string/now_playing_movies</item>
+    </string-array>
+    <string-array name="movie_entries_list_preference_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+</resources>

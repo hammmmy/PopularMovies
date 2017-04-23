@@ -71,7 +71,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         mBinding = FragmentMovieDetailBinding.inflate(inflater, container, false);
         mAppBarLayout = mBinding.toolbarLayout;
         mProgressBar = mBinding.movieDetailViewLayout.progress;
-        mDetailView = mBinding.movieDetailViewLayout.overview;
+        mDetailView = mBinding.movieDetailViewLayout.movieDetailScrollView;
         mEmptyView = mBinding.movieDetailViewLayout.emptyView;
 
         Toolbar toolbar = mBinding.detailToolbar;
@@ -109,7 +109,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         mEmptyView.setVisibility(View.GONE);
         mItem = movie;
         if (mAppBarLayout != null) {
-            mAppBarLayout.setTitle(mItem.getOriginalTitle());
+            mAppBarLayout.setTitle(mItem.getTitle());
         }
         mBinding.movieDetailViewLayout.overview.setText(mItem.getOverview());
 
@@ -120,7 +120,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             mBinding.movieDetailViewLayout.poster.setTransitionName("poster");
         }
         Picasso.with(getActivity()).load(movie.getBackdropPath())
-                .error(android.R.drawable.ic_menu_report_image)
+                .error(R.drawable.default_backdrop)
                 .into(mBinding.backdropImage);
         mBinding.movieDetailViewLayout.ranking.setText(movie.getVoteAverage());
         mBinding.movieDetailViewLayout.duration.setText(movie.getRuntime());
