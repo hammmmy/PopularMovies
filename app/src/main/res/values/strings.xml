@@ -20,4 +20,5 @@
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="sort_list_preference_title">Movie Type</string>
     <string name="now_playing_movies">Now Playing</string>
+    <string name="release_date">Release Date</string>
 </resources>

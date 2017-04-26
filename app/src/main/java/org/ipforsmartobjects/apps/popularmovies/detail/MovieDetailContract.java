@@ -1,7 +1,6 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 
@@ -23,6 +22,6 @@ public interface MovieDetailContract {
     }
 
     interface UserActionsListener {
-        void openMovie(@Nullable long movieId);
+        void openMovie(long movieId);
     }
 }

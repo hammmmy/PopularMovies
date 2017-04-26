@@ -15,7 +15,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/posterContainer"
@@ -46,14 +46,17 @@
                                 android:id="@+id/release_date_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Release Date"
+                                android:text="@string/release_date"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                             <TextView
                                 android:id="@+id/release_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:paddingEnd="@dimen/text_margin"
                                 android:paddingLeft="@dimen/text_margin"
+                                android:paddingRight="@dimen/text_margin"
+                                android:paddingStart="@dimen/text_margin"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                                 tools:text="2017" />
                         </LinearLayout>
@@ -76,7 +79,10 @@
                                 android:id="@+id/duration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="@dimen/text_padding"
+                                android:paddingEnd="@dimen/text_margin"
+                                android:paddingLeft="@dimen/text_margin"
+                                android:paddingRight="@dimen/text_margin"
+                                android:paddingStart="@dimen/text_margin"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                                 tools:text="1h 50m" />
                         </LinearLayout>
@@ -100,7 +106,10 @@
                                 android:id="@+id/ranking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="@dimen/text_padding"
+                                android:paddingEnd="@dimen/text_margin"
+                                android:paddingLeft="@dimen/text_margin"
+                                android:paddingRight="@dimen/text_margin"
+                                android:paddingStart="@dimen/text_margin"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                                 tools:text="7.0 Rating" />
                         </LinearLayout>
@@ -124,7 +133,10 @@
                                 android:id="@+id/genre"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:paddingEnd="@dimen/text_margin"
                                 android:paddingLeft="@dimen/text_margin"
+                                android:paddingRight="@dimen/text_margin"
+                                android:paddingStart="@dimen/text_margin"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 tools:text="Animation Comedy" />
                         </LinearLayout>

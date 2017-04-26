@@ -51,10 +51,10 @@ public class Movie implements Parcelable {
         }
 
     };
-    public static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
-    public static final String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w342/";
-    public static final String YOUTUBE_VIDEO_PREVIEW_PREFIX = "http://img.youtube.com/vi/";
-    public static final String YOUTUBE_VIDEO_PREVIEW_SUFFIX = "/mqdefault.jpg"; //reference: http://stackoverflow.com/questions/7324759/how-to-display-thumbnail-of-youtube-videos-in-android
+    private static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
+    private static final String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w342/";
+    private static final String YOUTUBE_VIDEO_PREVIEW_PREFIX = "http://img.youtube.com/vi/";
+    private static final String YOUTUBE_VIDEO_PREVIEW_SUFFIX = "/mqdefault.jpg"; //reference: http://stackoverflow.com/questions/7324759/how-to-display-thumbnail-of-youtube-videos-in-android
     private Boolean adult;
     private String backdropPath;
     private List<Genre> genres = null;

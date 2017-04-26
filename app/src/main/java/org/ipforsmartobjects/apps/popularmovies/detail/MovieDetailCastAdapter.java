@@ -67,7 +67,7 @@ public class MovieDetailCastAdapter extends RecyclerView.Adapter<MovieDetailCast
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ListItemCastBinding mListItemCastBinding;
+        final ListItemCastBinding mListItemCastBinding;
 
         public ViewHolder(ListItemCastBinding binding) {
             super(binding.getRoot());

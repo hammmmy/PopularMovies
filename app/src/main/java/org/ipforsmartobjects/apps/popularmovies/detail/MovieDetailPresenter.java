@@ -2,7 +2,6 @@ package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import org.ipforsmartobjects.apps.popularmovies.Injection;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
@@ -26,7 +25,7 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
     }
 
     @Override
-    public void openMovie(@Nullable long movieId) {
+    public void openMovie(long movieId) {
         if (movieId == -1) {
             mMoviesDetailView.showEmptyView();
             return;

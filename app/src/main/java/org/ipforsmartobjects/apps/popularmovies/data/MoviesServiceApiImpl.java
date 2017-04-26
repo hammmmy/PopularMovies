@@ -15,10 +15,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class MoviesServiceApiImpl implements MoviesServiceApi {
-    private RepositoryContract.MoviesRepositoryInteractor mInteractor;
+    private final RepositoryContract.MoviesRepositoryInteractor mInteractor;
 
-    private TheMovieDbApiHelper.TmDbRxApi mApi;
-    private String mApiKey;
+    private final TheMovieDbApiHelper.TmDbRxApi mApi;
+    private final String mApiKey;
 
     public MoviesServiceApiImpl(RepositoryContract.MoviesRepositoryInteractor interactor) {
         mInteractor = interactor;
@@ -84,6 +84,9 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                                 callback.onLoaded(movieResult.getMovies());
                             }
                         });
+                break;
+            case Constants.FAVORITES:
+                // TODO: 4/27/2017
                 break;
         }
 

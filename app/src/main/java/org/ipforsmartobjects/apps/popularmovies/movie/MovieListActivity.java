@@ -46,7 +46,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     private boolean mTwoPane;
     private MovieAdapter mListAdapter;
     private MoviesContract.UserActionsListener mActionsListener;
-    MovieItemListener mItemListener = new MovieItemListener() {
+    private final MovieItemListener mItemListener = new MovieItemListener() {
         @Override
         public void onMovieClick(Movie clickedMovie) {
             mActionsListener.openMovieDetails(clickedMovie);
@@ -101,7 +101,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         });
 
 
-        AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) findViewById(R.id.movie_item_list);
+        AutoFitGridRecyclerView recyclerView = (AutoFitGridRecyclerView) mListView;
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(20); // for faster scroll (?)
@@ -183,7 +183,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         return MovieListActivity.this;
     }
 
-    public CharSequence getActivityTitle() {
+    private CharSequence getActivityTitle() {
         int order = getSortOrder();
         switch (order) {
             case Constants.POPULAR_MOVIES:

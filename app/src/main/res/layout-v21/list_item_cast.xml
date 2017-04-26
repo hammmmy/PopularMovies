@@ -13,6 +13,7 @@
             android:id="@+id/actor_image_container"
             android:layout_width="@dimen/movie_item_column_width"
             android:layout_height="@dimen/movie_item_column_width"
+            android:elevation="12dp"
             android:innerRadius="0dp"
             android:shape="ring"
             android:thicknessRatio="1.9"

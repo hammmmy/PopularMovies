@@ -79,7 +79,7 @@ public class MovieDetailTrailerAdapter extends RecyclerView.Adapter<MovieDetailT
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ListItemTrailerBinding mListItemTrailerBinding;
+        final ListItemTrailerBinding mListItemTrailerBinding;
 
         public ViewHolder(ListItemTrailerBinding binding) {
             super(binding.getRoot());

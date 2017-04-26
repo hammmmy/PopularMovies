@@ -65,7 +65,7 @@ public class MovieDetailPictureAdapter extends RecyclerView.Adapter<MovieDetailP
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ListItemPictureBinding mListItemPictureBinding;
+        final ListItemPictureBinding mListItemPictureBinding;
 
         public ViewHolder(ListItemPictureBinding binding) {
             super(binding.getRoot());

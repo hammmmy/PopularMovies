@@ -22,23 +22,20 @@ import retrofit2.http.Query;
 
 public class TheMovieDbApiHelper {
 
-    public static final String BASE_URL = "https://api.themoviedb.org/3/";
-    public static final String MOVIE = "movie";
-    public static final String POPULAR = "/popular";
-    public static final String TOP_RATED = "/top_rated";
-    public static final String UPCOMING = "/upcoming";
-    public static final String NOW_PLAYING = "/now_playing";
-
-    public static final String MOVIE_ID = "/{id}";
-    public static final String SORT_BY_POPULARITY_QUERY = MOVIE + POPULAR;
-    public static final String SORT_BY_RATING_QUERY = MOVIE + TOP_RATED;
-    public static final String UPCOMING_MOVIES_QUERY = MOVIE + UPCOMING;
-    public static final String NOW_PLAYING_MOVIES_QUERY = MOVIE + NOW_PLAYING;
-
+    private static final String API_KEY = "api_key";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String MOVIE = "movie";
+    private static final String POPULAR = "/popular";
+    private static final String TOP_RATED = "/top_rated";
+    private static final String UPCOMING = "/upcoming";
+    private static final String NOW_PLAYING = "/now_playing";
+    private static final String MOVIE_ID = "/{id}";
+    private static final String SORT_BY_POPULARITY_QUERY = MOVIE + POPULAR;
+    private static final String SORT_BY_RATING_QUERY = MOVIE + TOP_RATED;
+    private static final String UPCOMING_MOVIES_QUERY = MOVIE + UPCOMING;
+    private static final String NOW_PLAYING_MOVIES_QUERY = MOVIE + NOW_PLAYING;
     //    public static final String MOVIE_WITH_ID_QUERY = MOVIE + MOVIE_ID;
-    public static final String MOVIE_DETAILS_QUERY = MOVIE + MOVIE_ID + "?append_to_response=trailers,reviews,images,credits,recommendations,similar,videos";
-
-    public static final String API_KEY = "api_key";
+    private static final String MOVIE_DETAILS_QUERY = MOVIE + MOVIE_ID + "?append_to_response=trailers,reviews,images,credits,recommendations,similar,videos";
 
     // use Retrofit 2 without Rx
     public static TmDbApi getApi() {
@@ -50,8 +47,7 @@ public class TheMovieDbApiHelper {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(camelCaseGson))
                 .build();
-        TheMovieDbApiHelper.TmDbApi tmDbApi = retrofit.create(TheMovieDbApiHelper.TmDbApi.class);
-        return tmDbApi;
+        return retrofit.create(TmDbApi.class);
     }
 
     // use Retrofit 2 with Rx 2
@@ -65,8 +61,7 @@ public class TheMovieDbApiHelper {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(camelCaseGson))
                 .build();
-        TheMovieDbApiHelper.TmDbRxApi tmDbApi = retrofit.create(TheMovieDbApiHelper.TmDbRxApi.class);
-        return tmDbApi;
+        return retrofit.create(TmDbRxApi.class);
     }
 
     public interface TmDbApi {

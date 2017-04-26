@@ -64,7 +64,7 @@ public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailRe
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ListItemReviewBinding mListItemReviewBinding;
+        final ListItemReviewBinding mListItemReviewBinding;
 
         public ViewHolder(ListItemReviewBinding binding) {
             super(binding.getRoot());

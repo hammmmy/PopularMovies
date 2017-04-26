@@ -15,10 +15,10 @@ import retrofit2.Response;
  */
 
 public class MoviesServiceApiImplWithoutRx implements MoviesServiceApi {
-    private RepositoryContract.MoviesRepositoryInteractor mInteractor;
+    private final RepositoryContract.MoviesRepositoryInteractor mInteractor;
 
-    private TheMovieDbApiHelper.TmDbApi mApi;
-    private String mApiKey;
+    private final TheMovieDbApiHelper.TmDbApi mApi;
+    private final String mApiKey;
 
     public MoviesServiceApiImplWithoutRx(RepositoryContract.MoviesRepositoryInteractor interactor) {
         mInteractor = interactor;
@@ -115,6 +115,9 @@ public class MoviesServiceApiImplWithoutRx implements MoviesServiceApi {
                         callback.onLoadingFailed();
                     }
                 });
+                break;
+            case Constants.FAVORITES:
+                // TODO: 4/27/2017
                 break;
         }
 

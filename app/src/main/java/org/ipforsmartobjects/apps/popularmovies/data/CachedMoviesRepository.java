@@ -2,14 +2,13 @@ package org.ipforsmartobjects.apps.popularmovies.data;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.util.LongSparseArray;
 
 import com.google.common.collect.ImmutableList;
 
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -19,17 +18,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class CachedMoviesRepository implements RepositoryContract.MoviesRepository {
 
     private final MoviesServiceApi mMoviesServiceApi;
-
     @VisibleForTesting
+    private final
+    LongSparseArray<Movie> mMovieCache = new LongSparseArray<>();
+    @VisibleForTesting
+    private
     List<Movie> mCachedPopularMovies;
     @VisibleForTesting
+    private
     List<Movie> mCachedHighestRatingMovies;
     @VisibleForTesting
+    private
     List<Movie> mCachedUpComingMovies;
     @VisibleForTesting
+    private
     List<Movie> mCachedNowPlayingMovies;
-    @VisibleForTesting
-    Map<Long, Movie> mMovieCache = new HashMap<>();
 
 
     public CachedMoviesRepository(@NonNull MoviesServiceApi moviesServiceApi) {
@@ -126,7 +129,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
     }
 
     @Override
-    public void getMovie(@NonNull final long movieId, @NonNull final GetMovieCallback callback) {
+    public void getMovie(final long movieId, @NonNull final GetMovieCallback callback) {
         checkNotNull(movieId);
         checkNotNull(callback);
 
@@ -148,11 +151,6 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
             }
         });
 
-
-    }
-
-    @Override
-    public void getMovieDetailExtras(@NonNull long movieId, @NonNull GetMovieCallback callback) {
 
     }
 
