@@ -17,10 +17,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/posterContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/movie_item_column_height">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/movie_item_column_height"
+                    android:background="@color/colorPrimary">
 
                     <ImageView
                         android:id="@+id/poster"
@@ -28,123 +29,116 @@
                         android:layout_height="match_parent"
                         tools:src="@drawable/test_poster" />
 
-                    <TextView
-                        android:id="@+id/tagline"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/poster"
-                        android:padding="@dimen/text_margin"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        tools:text="Lannisters never pay anything" />
-                </RelativeLayout>
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
 
-                <RelativeLayout
-                    android:id="@+id/infoContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/posterContainer"
-                    android:background="@color/colorPrimary"
-                    android:padding="@dimen/text_margin">
-
-                    <LinearLayout
-                        android:id="@+id/ranking_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/ranking_label"
+                        <LinearLayout
+                            android:id="@+id/release_date_container"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:labelFor="@+id/ranking"
-                            android:text="@string/ranking"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                            android:orientation="horizontal"
+                            android:padding="@dimen/text_padding">
 
-                        <TextView
-                            android:id="@+id/ranking"
+                            <TextView
+                                android:id="@+id/release_date_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Release Date"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <TextView
+                                android:id="@+id/release_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/text_margin"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                tools:text="2017" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/duration_container"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="@dimen/text_margin"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            tools:text="7.0 Rating" />
+                            android:orientation="horizontal"
+                            android:padding="@dimen/text_padding">
+
+                            <TextView
+                                android:id="@+id/duration_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/duration"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <TextView
+                                android:id="@+id/duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/text_padding"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                tools:text="1h 50m" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ranking_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/text_padding">
+
+                            <TextView
+                                android:id="@+id/ranking_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:labelFor="@+id/ranking"
+                                android:text="@string/ranking"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <TextView
+                                android:id="@+id/ranking"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/text_padding"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                tools:text="7.0 Rating" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/genre_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/text_padding">
+
+                            <TextView
+                                android:id="@+id/genre_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/genre"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                            <TextView
+                                android:id="@+id/genre"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/text_margin"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                tools:text="Animation Comedy" />
+                        </LinearLayout>
+
+
                     </LinearLayout>
+                </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/duration_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/duration_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/duration"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                        <TextView
-                            android:id="@+id/duration"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="@dimen/text_margin"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            tools:text="1h 50m" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/genre_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ranking_container"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/genre_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/genre"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                        <TextView
-                            android:id="@+id/genre"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="@dimen/text_margin"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            tools:text="Animation Comedy" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/release_date_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/ranking_container"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/release_date_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Release Date"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                        <TextView
-                            android:id="@+id/release_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="@dimen/text_margin"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            tools:text="2017" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/overview_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/infoContainer"
+                    android:layout_below="@+id/posterContainer"
+                    android:orientation="vertical"
                     android:padding="@dimen/text_margin">
 
                     <TextView
@@ -155,14 +149,21 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
+                        android:id="@+id/tagline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/text_padding"
+                        android:paddingTop="@dimen/text_padding"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="Lannisters never pay anything" />
+                    <TextView
                         android:id="@+id/overview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/overview_layout_label"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textIsSelectable="true"
                         tools:text="this is the story line" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/trailer_container"
@@ -212,7 +213,6 @@
                         android:columnWidth="@dimen/movie_item_column_width"
                         android:orientation="horizontal"
                         app:layoutManager="GridLayoutManager"
-
                         app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         app:spanCount="1" />
 

@@ -1,6 +1,8 @@
 # Popular Movies
 Popular Movies app for Android Nanodegree
 
+To compile this project, insert your own [TMDB key](https://www.themoviedb.org/documentation/api) in [strings.xml](/app/src/main/res/values/strings.xml)
+
 The following concepts were used
 
 1. Model View Presenter (MVP): 
@@ -81,5 +83,11 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
                 .into(viewHolder.mMovieViewBinding.posterThumbnail);
                 
   
+ 7. Material Design
  
+ I tried to use a bit of material design in the project.
+ 
+ 8. Disclaimer 
+ 
+ The images in the projects are downloaded either from material.io or unsplash.com
  

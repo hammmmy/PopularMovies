@@ -1,8 +1,11 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import org.ipforsmartobjects.apps.popularmovies.data.Movie.Review;
@@ -59,13 +62,32 @@ public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailRe
         return mReviews.get(position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ListItemReviewBinding mListItemReviewBinding;
 
         public ViewHolder(ListItemReviewBinding binding) {
             super(binding.getRoot());
             mListItemReviewBinding = binding;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Review review = getItem(position);
+
+            new AlertDialog.Builder(mContext)
+                    .setTitle(review.getAuthor())
+                    .setMessage(review.getContent())
+                    .setCancelable(true)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
         }
     }
 

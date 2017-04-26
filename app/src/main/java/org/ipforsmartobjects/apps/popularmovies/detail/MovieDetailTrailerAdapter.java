@@ -46,6 +46,7 @@ public class MovieDetailTrailerAdapter extends RecyclerView.Adapter<MovieDetailT
         Picasso.with(mContext).load(trailer.getTrailerPreviewPath())
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(viewHolder.mListItemTrailerBinding.trailerPreviewImage);
+        viewHolder.mListItemTrailerBinding.caption.setText(trailer.getName());
     }
 
     public void replaceData(List<Trailer> trailers) {
