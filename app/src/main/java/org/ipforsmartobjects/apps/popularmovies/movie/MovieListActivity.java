@@ -3,24 +3,22 @@ package org.ipforsmartobjects.apps.popularmovies.movie;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
+import org.ipforsmartobjects.apps.popularmovies.databinding.ActivityMovieListBinding;
 import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailActivity;
 import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailFragment;
 import org.ipforsmartobjects.apps.popularmovies.settings.PrefsActivity;
@@ -53,28 +51,20 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         }
     };
     private SharedPreferences mSharedPrefs;
-    private View mProgressBar;
     private View mListView;
     private View mEmptyView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private Toolbar mToolbar;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
-    private ImageView mParallaxImage;
+    private ActivityMovieListBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_list);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list);
+        setSupportActionBar(mBinding.toolbar);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        mParallaxImage = (ImageView) findViewById(R.id.parallax_image);
-
-        mProgressBar = findViewById(R.id.progress);
-        mListView = findViewById(R.id.movie_item_list);
-        mEmptyView = findViewById(R.id.empty_view);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+        mListView = mBinding.movieGridLayoutContainer.movieItemList;
+        mEmptyView = mBinding.movieGridLayoutContainer.emptyView;
+        mSwipeRefreshLayout = mBinding.movieGridLayoutContainer.refreshLayout;
         mSwipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(MovieListActivity.this, R.color.colorPrimary),
                 ContextCompat.getColor(MovieListActivity.this, R.color.colorAccent),
@@ -89,9 +79,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MovieListActivity.this, PrefsActivity.class);
@@ -144,7 +132,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
 
     @Override
     public void setProgressIndicator(boolean active) {
-        mProgressBar.setVisibility(active ? View.VISIBLE : View.GONE);
+        mBinding.movieGridLayoutContainer.progress.setVisibility(active ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -223,8 +211,8 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
 
     @Override
     protected void onResume() {
-        mCollapsingToolbarLayout.setTitle(getActivityTitle());
-        mParallaxImage.setImageResource(getParallaxImage(getSortOrder()));
+        mBinding.collapsingToolbar.setTitle(getActivityTitle());
+        mBinding.parallaxImage.setImageResource(getParallaxImage(getSortOrder()));
 
         // can set the title as follows when CollapsingToolbarLayout is not used
 //        if (getSupportActionBar() != null) {
@@ -253,7 +241,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         return R.drawable.main_parallex_popular;
     }
 
-    public interface MovieItemListener {
+    interface MovieItemListener {
         void onMovieClick(Movie clickedMovie);
     }
 }

@@ -39,6 +39,7 @@
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
@@ -63,6 +64,7 @@
             android:layout_margin="@dimen/fab_margin"
             app:layout_anchor="@+id/toolbar_layout"
             app:layout_anchorGravity="center_vertical|end"
+            app:layout_collapseMode="pin"
             app:srcCompat="@drawable/ic_star_off" />
 
     </android.support.design.widget.CoordinatorLayout>
