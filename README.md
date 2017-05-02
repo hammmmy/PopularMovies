@@ -87,7 +87,44 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
  
  I tried to use a bit of material design in the project.
  
- 8. Disclaimer 
+ 8. Palette
+ 
+ I used Palette to get background and text colors in movie detail layout.
+ 
+ 9. Disclaimer 
  
  The images in the projects are downloaded either from material.io or unsplash.com
  
+ 10. Screenshots: 
+ 
+ 
+![Preview](screenshots/popular.png)
+
+
+![Preview](screenshots/now_playing.png)
+
+
+![Preview](screenshots/detail.png)
+
+
+![Preview](screenshots/detail2.png)
+
+
+## License
+```
+Copyright 2017 Hamid Mukhtar
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+
