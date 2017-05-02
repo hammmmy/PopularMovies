@@ -174,36 +174,55 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                                     @Override
                                     public void onGenerated(Palette palette) {
                                         Palette.Swatch primarySwatch = palette.getLightVibrantSwatch() == null ? palette.getDarkVibrantSwatch() : palette.getLightVibrantSwatch();
-                                        Palette.Swatch secondarySwatch = palette.getVibrantSwatch();
+                                        Palette.Swatch secondarySwatch = palette.getVibrantSwatch() == null ? palette.getMutedSwatch() : palette.getVibrantSwatch();
 
                                         if (primarySwatch != null) {
                                             mBinding.movieDetailViewLayout.movieDetailViewContainer.setBackgroundColor(primarySwatch.getRgb());
-                                            mBinding.movieDetailViewLayout.ranking.setTextColor(primarySwatch.getBodyTextColor());
-                                            mBinding.movieDetailViewLayout.duration.setTextColor(primarySwatch.getBodyTextColor());
-                                            mBinding.movieDetailViewLayout.genre.setTextColor(primarySwatch.getBodyTextColor());
-                                            mBinding.movieDetailViewLayout.releaseDate.setTextColor(primarySwatch.getBodyTextColor());
-                                            mBinding.movieDetailViewLayout.tagline.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.castLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.durationLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.genreLabel.setTextColor(primarySwatch.getTitleTextColor());
+
                                             mBinding.movieDetailViewLayout.overviewLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.photoLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.rankingLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.releaseDateLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.reviewLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.trailerLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mBinding.movieDetailViewLayout.videosLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
-                                            mTrailerAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.tagline.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.overview.setTextColor(primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.castLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
                                             mCastAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.photoLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+
+                                            mBinding.movieDetailViewLayout.reviewLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
                                             mReviewAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.trailerLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mTrailerAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.videosLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
                                             mVideoAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
                                         }
+
                                         if (secondarySwatch != null) {
                                             mBinding.movieDetailViewLayout.posterContainer.setBackgroundColor(secondarySwatch.getRgb());
+                                            mBinding.movieDetailViewLayout.rankingLabel.setTextColor(secondarySwatch.getTitleTextColor());
                                             mBinding.movieDetailViewLayout.ranking.setTextColor(secondarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.durationLabel.setTextColor(secondarySwatch.getTitleTextColor());
                                             mBinding.movieDetailViewLayout.duration.setTextColor(secondarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.genreLabel.setTextColor(secondarySwatch.getTitleTextColor());
                                             mBinding.movieDetailViewLayout.genre.setTextColor(secondarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.releaseDateLabel.setTextColor(secondarySwatch.getTitleTextColor());
                                             mBinding.movieDetailViewLayout.releaseDate.setTextColor(secondarySwatch.getBodyTextColor());
+                                        } else if (primarySwatch != null) {
+                                            mBinding.movieDetailViewLayout.rankingLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.ranking.setTextColor(primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.durationLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.duration.setTextColor(primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.genreLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.genre.setTextColor(primarySwatch.getBodyTextColor());
+
+                                            mBinding.movieDetailViewLayout.releaseDateLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.releaseDate.setTextColor(primarySwatch.getBodyTextColor());
                                         }
                                     }
                                 });
