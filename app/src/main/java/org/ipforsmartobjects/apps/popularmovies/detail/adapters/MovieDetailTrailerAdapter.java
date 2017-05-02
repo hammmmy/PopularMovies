@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies.detail;
+package org.ipforsmartobjects.apps.popularmovies.detail.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +25,9 @@ public class MovieDetailTrailerAdapter extends RecyclerView.Adapter<MovieDetailT
 
     private List<Trailer> mTrailers;
     private Context mContext;
+    private Integer mRgbColor;
+    private Integer mTitleColor;
+    private Integer mBodyColor;
 
     public MovieDetailTrailerAdapter(List<Trailer> trailers) {
         setList(trailers);
@@ -47,10 +50,20 @@ public class MovieDetailTrailerAdapter extends RecyclerView.Adapter<MovieDetailT
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(viewHolder.mListItemTrailerBinding.trailerPreviewImage);
         viewHolder.mListItemTrailerBinding.caption.setText(trailer.getName());
+        if (mBodyColor != null) {
+            viewHolder.mListItemTrailerBinding.caption.setTextColor(mBodyColor);
+        }
     }
 
     public void replaceData(List<Trailer> trailers) {
         setList(trailers);
+        notifyDataSetChanged();
+    }
+
+    public void setColors(Integer rgb, Integer titleColor, Integer bodyColor) {
+        mRgbColor = rgb;
+        mTitleColor = titleColor;
+        mBodyColor = bodyColor;
         notifyDataSetChanged();
     }
 

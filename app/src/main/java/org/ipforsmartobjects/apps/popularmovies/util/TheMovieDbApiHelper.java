@@ -35,7 +35,7 @@ public class TheMovieDbApiHelper {
     private static final String UPCOMING_MOVIES_QUERY = MOVIE + UPCOMING;
     private static final String NOW_PLAYING_MOVIES_QUERY = MOVIE + NOW_PLAYING;
     //    public static final String MOVIE_WITH_ID_QUERY = MOVIE + MOVIE_ID;
-    private static final String MOVIE_DETAILS_QUERY = MOVIE + MOVIE_ID + "?append_to_response=trailers,reviews,images,credits,recommendations,similar,videos";
+    private static final String MOVIE_DETAILS_QUERY = MOVIE + MOVIE_ID + "?append_to_response=videos,reviews,trailers,credits,images/*,recommendations,similar*/";
 
     // use Retrofit 2 without Rx
     public static TmDbApi getApi() {

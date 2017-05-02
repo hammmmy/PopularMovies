@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,10 +19,12 @@
             android:id="@+id/actor_image_container"
             android:layout_width="@dimen/review_column_width"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_view_margin"
             android:innerRadius="0dp"
             android:shape="ring"
             android:thicknessRatio="1.9"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp"
+            card_view:cardBackgroundColor="@android:color/transparent">
 
             <TextView
                 android:id="@+id/content"
@@ -31,7 +34,7 @@
                 android:maxLines="5"
                 android:padding="@dimen/text_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                tools:text="The Starks are doomed" />
+                tools:text="The Starks are doomed\n\nabc\nadd\naaa\naa\n" />
 
         </android.support.v7.widget.CardView>
 

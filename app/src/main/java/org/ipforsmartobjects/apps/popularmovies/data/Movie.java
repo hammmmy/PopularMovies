@@ -96,7 +96,7 @@ public class Movie implements Parcelable {
         this.backdropPath = backdropPath;
     }
 
-    public String getGenres() {
+    public String getGenreString() {
         StringBuilder sb = new StringBuilder();
         if (genres != null) {
             for (Movie.Genre genre : genres) {
@@ -105,6 +105,10 @@ public class Movie implements Parcelable {
             return sb.toString();
         }
         return "";
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
     }
 
     public void setGenres(List<Genre> genres) {
@@ -214,7 +218,7 @@ public class Movie implements Parcelable {
     }
 
     public String getVoteAverage() {
-        return "" + voteAverage;
+        return "" + voteAverage + " / 10";
     }
 
     public void setVoteAverage(Double voteAverage) {
@@ -1006,7 +1010,7 @@ public class Movie implements Parcelable {
             })
             public Videos createFromParcel(Parcel in) {
                 Videos instance = new Videos();
-                in.readList(instance.videos, (Video.class.getClassLoader()));
+                in.readList(instance.results, (Video.class.getClassLoader()));
                 return instance;
             }
 
@@ -1015,18 +1019,18 @@ public class Movie implements Parcelable {
             }
 
         };
-        private List<Video> videos = null;
+        private List<Video> results = null;
 
         public List<Video> getVideos() {
-            return videos;
+            return results;
         }
 
         public void setVideos(List<Video> videos) {
-            this.videos = videos;
+            this.results = videos;
         }
 
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeList(videos);
+            dest.writeList(results);
         }
 
         public int describeContents() {
@@ -1101,6 +1105,10 @@ public class Movie implements Parcelable {
 
         public void setType(String type) {
             this.type = type;
+        }
+
+        public String getVideoPreviewPath() {
+            return TextUtils.isEmpty(key) ? null : YOUTUBE_VIDEO_PREVIEW_PREFIX + key + YOUTUBE_VIDEO_PREVIEW_SUFFIX;
         }
 
         public void writeToParcel(Parcel dest, int flags) {

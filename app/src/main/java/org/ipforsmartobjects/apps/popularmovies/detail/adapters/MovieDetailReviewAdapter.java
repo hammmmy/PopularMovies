@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies.detail;
+package org.ipforsmartobjects.apps.popularmovies.detail.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +23,9 @@ public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailRe
 
     private List<Review> mReviews;
     private Context mContext;
+    private Integer mTitleColor;
+    private Integer mBodyColor;
+    private Integer mRgbColor;
 
     public MovieDetailReviewAdapter(List<Review> reviews) {
         setList(reviews);
@@ -42,10 +45,21 @@ public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailRe
         Review review = mReviews.get(position);
         viewHolder.mListItemReviewBinding.author.setText(review.getAuthor());
         viewHolder.mListItemReviewBinding.content.setText(review.getContent());
+
+        if (mTitleColor != null) {
+            viewHolder.mListItemReviewBinding.author.setTextColor(mTitleColor);
+        }
+
+        if (mBodyColor != null) {
+            viewHolder.mListItemReviewBinding.content.setTextColor(mBodyColor);
+        }
+
     }
 
-    public void replaceData(List<Review> movies) {
-        setList(movies);
+    public void setColors(Integer rgb, Integer titleColor, Integer bodyColor) {
+        mRgbColor = rgb;
+        mTitleColor = titleColor;
+        mBodyColor = bodyColor;
         notifyDataSetChanged();
     }
 

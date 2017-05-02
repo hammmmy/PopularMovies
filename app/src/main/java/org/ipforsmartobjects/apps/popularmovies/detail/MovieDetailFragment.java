@@ -1,12 +1,15 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,10 +18,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 import org.ipforsmartobjects.apps.popularmovies.databinding.FragmentMovieDetailBinding;
+import org.ipforsmartobjects.apps.popularmovies.detail.adapters.MovieDetailCastAdapter;
+import org.ipforsmartobjects.apps.popularmovies.detail.adapters.MovieDetailPictureAdapter;
+import org.ipforsmartobjects.apps.popularmovies.detail.adapters.MovieDetailReviewAdapter;
+import org.ipforsmartobjects.apps.popularmovies.detail.adapters.MovieDetailTrailerAdapter;
+import org.ipforsmartobjects.apps.popularmovies.detail.adapters.MovieDetailVideoAdapter;
 import org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity;
 
 import java.util.ArrayList;
@@ -45,6 +54,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private View mDetailView;
     private View mEmptyView;
     private FragmentMovieDetailBinding mBinding;
+    private MovieDetailVideoAdapter mVideoAdapter;
+    private MovieDetailTrailerAdapter mTrailerAdapter;
+    private MovieDetailCastAdapter mCastAdapter;
+    private MovieDetailReviewAdapter mReviewAdapter;
+    private MovieDetailPictureAdapter mPictureAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,7 +85,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         mBinding = FragmentMovieDetailBinding.inflate(inflater, container, false);
         mAppBarLayout = mBinding.toolbarLayout;
         mProgressBar = mBinding.movieDetailViewLayout.progress;
-        mDetailView = mBinding.movieDetailViewLayout.movieDetailScrollView;
+        mDetailView = mBinding.movieDetailViewLayout.movieDetailContainer;
         mEmptyView = mBinding.movieDetailViewLayout.emptyView;
 
         Toolbar toolbar = mBinding.detailToolbar;
@@ -113,9 +127,98 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         }
         mBinding.movieDetailViewLayout.overview.setText(mItem.getOverview());
 
+        RecyclerView trailerRecyclerView = mBinding.movieDetailViewLayout.trailerLayout;
+        trailerRecyclerView.setHasFixedSize(true);
+        mTrailerAdapter = new MovieDetailTrailerAdapter(
+                (movie.getTrailers() == null || movie.getTrailers().getYoutube() == null)
+                        ? new ArrayList<>(0) : movie.getTrailers().getYoutube());
+        trailerRecyclerView.setAdapter(mTrailerAdapter);
+
+        RecyclerView castRecyclerView = mBinding.movieDetailViewLayout.castLayout;
+        castRecyclerView.setHasFixedSize(true);
+        mCastAdapter = new MovieDetailCastAdapter(
+                (movie.getCredits() == null || movie.getCredits().getCast() == null)
+                        ? new ArrayList<>(0) : movie.getCredits().getCast());
+        castRecyclerView.setAdapter(mCastAdapter);
+
+        RecyclerView reviewRecyclerView = mBinding.movieDetailViewLayout.reviewLayout;
+        reviewRecyclerView.setHasFixedSize(true);
+        mReviewAdapter = new MovieDetailReviewAdapter(
+                (movie.getReviews() == null || movie.getReviews().getResults() == null)
+                        ? new ArrayList<>(0) : movie.getReviews().getResults());
+        reviewRecyclerView.setAdapter(mReviewAdapter);
+
+        RecyclerView pictureRecyclerView = mBinding.movieDetailViewLayout.photoLayout;
+        pictureRecyclerView.setHasFixedSize(true);
+        mPictureAdapter = new MovieDetailPictureAdapter(
+                (movie.getImages() == null || movie.getImages().getBackdrops() == null)
+                        ? new ArrayList<>(0) : movie.getImages().getBackdrops());
+        pictureRecyclerView.setAdapter(mPictureAdapter);
+
+        RecyclerView videoRecyclerView = mBinding.movieDetailViewLayout.videosLayout;
+        videoRecyclerView.setHasFixedSize(true);
+        mVideoAdapter = new MovieDetailVideoAdapter(
+                (movie.getVideos() == null || movie.getVideos().getVideos() == null)
+                        ? new ArrayList<>(0) : movie.getVideos().getVideos());
+        videoRecyclerView.setAdapter(mVideoAdapter);
+
         Picasso.with(getActivity()).load(movie.getPosterPath())
                 .error(android.R.drawable.ic_menu_report_image)
-                .into(mBinding.movieDetailViewLayout.poster);
+//                .into(mBinding.movieDetailViewLayout.poster);
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        mBinding.movieDetailViewLayout.poster.setImageBitmap(bitmap);
+                        Palette.from(bitmap)
+                                .generate(new Palette.PaletteAsyncListener() {
+                                    @Override
+                                    public void onGenerated(Palette palette) {
+                                        Palette.Swatch primarySwatch = palette.getLightVibrantSwatch() == null ? palette.getDarkVibrantSwatch() : palette.getLightVibrantSwatch();
+                                        Palette.Swatch secondarySwatch = palette.getVibrantSwatch();
+
+                                        if (primarySwatch != null) {
+                                            mBinding.movieDetailViewLayout.movieDetailViewContainer.setBackgroundColor(primarySwatch.getRgb());
+                                            mBinding.movieDetailViewLayout.ranking.setTextColor(primarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.duration.setTextColor(primarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.genre.setTextColor(primarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.releaseDate.setTextColor(primarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.tagline.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.castLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.durationLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.genreLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.overviewLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.photoLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.rankingLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.releaseDateLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.reviewLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.trailerLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mBinding.movieDetailViewLayout.videosLayoutLabel.setTextColor(primarySwatch.getTitleTextColor());
+                                            mTrailerAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+                                            mCastAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+                                            mReviewAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+                                            mVideoAdapter.setColors(primarySwatch.getRgb(), primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
+                                        }
+                                        if (secondarySwatch != null) {
+                                            mBinding.movieDetailViewLayout.posterContainer.setBackgroundColor(secondarySwatch.getRgb());
+                                            mBinding.movieDetailViewLayout.ranking.setTextColor(secondarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.duration.setTextColor(secondarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.genre.setTextColor(secondarySwatch.getBodyTextColor());
+                                            mBinding.movieDetailViewLayout.releaseDate.setTextColor(secondarySwatch.getBodyTextColor());
+                                        }
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mBinding.movieDetailViewLayout.poster.setTransitionName("poster");
         }
@@ -124,38 +227,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                 .into(mBinding.backdropImage);
         mBinding.movieDetailViewLayout.ranking.setText(movie.getVoteAverage());
         mBinding.movieDetailViewLayout.duration.setText(movie.getRuntime());
-        mBinding.movieDetailViewLayout.genre.setText(movie.getGenres());
+        mBinding.movieDetailViewLayout.genre.setText(movie.getGenreString());
         mBinding.movieDetailViewLayout.releaseDate.setText(movie.getReleaseDate());
         mBinding.movieDetailViewLayout.tagline.setText(movie.getTagline());
 
-        RecyclerView trailerRecyclerView = mBinding.movieDetailViewLayout.trailerLayout;
-        trailerRecyclerView.setHasFixedSize(true);
-
-        MovieDetailTrailerAdapter trailerAdapter = new MovieDetailTrailerAdapter(
-                (movie.getTrailers() == null || movie.getTrailers().getYoutube() == null)
-                        ? new ArrayList<>(0) : movie.getTrailers().getYoutube());
-        trailerRecyclerView.setAdapter(trailerAdapter);
-
-        RecyclerView castRecyclerView = mBinding.movieDetailViewLayout.castLayout;
-        castRecyclerView.setHasFixedSize(true);
-        MovieDetailCastAdapter castAdapter = new MovieDetailCastAdapter(
-                (movie.getCredits() == null || movie.getCredits().getCast() == null)
-                        ? new ArrayList<>(0) : movie.getCredits().getCast());
-        castRecyclerView.setAdapter(castAdapter);
-
-        RecyclerView reviewRecyclerView = mBinding.movieDetailViewLayout.reviewLayout;
-        reviewRecyclerView.setHasFixedSize(true);
-        MovieDetailReviewAdapter reviewAdapter = new MovieDetailReviewAdapter(
-                (movie.getReviews() == null || movie.getReviews().getResults() == null)
-                        ? new ArrayList<>(0) : movie.getReviews().getResults());
-        reviewRecyclerView.setAdapter(reviewAdapter);
-
-        RecyclerView pictureRecyclerView = mBinding.movieDetailViewLayout.photoLayout;
-        pictureRecyclerView.setHasFixedSize(true);
-        MovieDetailPictureAdapter pictureAdapter = new MovieDetailPictureAdapter(
-                (movie.getImages() == null || movie.getImages().getBackdrops() == null)
-                        ? new ArrayList<>(0) : movie.getImages().getBackdrops());
-        pictureRecyclerView.setAdapter(pictureAdapter);
 
     }
 

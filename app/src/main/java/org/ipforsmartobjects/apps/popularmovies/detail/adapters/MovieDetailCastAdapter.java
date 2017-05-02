@@ -1,4 +1,4 @@
-package org.ipforsmartobjects.apps.popularmovies.detail;
+package org.ipforsmartobjects.apps.popularmovies.detail.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +22,9 @@ public class MovieDetailCastAdapter extends RecyclerView.Adapter<MovieDetailCast
 
     private List<Cast> mCast;
     private Context mContext;
+    private Integer mRgbColor;
+    private Integer mTitleColor;
+    private Integer mBodyColor;
 
     public MovieDetailCastAdapter(List<Cast> casts) {
         setList(casts);
@@ -45,10 +48,24 @@ public class MovieDetailCastAdapter extends RecyclerView.Adapter<MovieDetailCast
                 .into(viewHolder.mListItemCastBinding.actorImage);
         viewHolder.mListItemCastBinding.actor.setText(cast.getName());
         viewHolder.mListItemCastBinding.role.setText(cast.getCharacter());
+
+        if (mTitleColor != null) {
+            viewHolder.mListItemCastBinding.role.setTextColor(mTitleColor);
+        }
+        if (mBodyColor != null) {
+            viewHolder.mListItemCastBinding.actor.setTextColor(mBodyColor);
+        }
     }
 
     public void replaceData(List<Cast> casts) {
         setList(casts);
+        notifyDataSetChanged();
+    }
+
+    public void setColors(Integer rgb, Integer titleColor, Integer bodyColor) {
+        mRgbColor = rgb;
+        mTitleColor = titleColor;
+        mBodyColor = bodyColor;
         notifyDataSetChanged();
     }
 

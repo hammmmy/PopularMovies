@@ -9,12 +9,13 @@
         android:padding="@dimen/text_margin"
         tools:ignore="UseCompoundDrawables">
 
+
         <RelativeLayout
             android:layout_width="@dimen/trailer_preview_column_width"
             android:layout_height="@dimen/trailer_preview_column_height">
 
             <ImageView
-                android:id="@+id/trailer_preview_image"
+                android:id="@+id/video_preview_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:src="@android:drawable/gallery_thumb" />
@@ -32,7 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             tools:text="Entitled to an opinion" />
+
+        <TextView
+            android:id="@+id/source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:visibility="gone"
+            tools:text="Youtube" />
     </LinearLayout>
 </layout>
