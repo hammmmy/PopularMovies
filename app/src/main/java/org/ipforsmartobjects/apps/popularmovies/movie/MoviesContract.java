@@ -4,7 +4,6 @@ package org.ipforsmartobjects.apps.popularmovies.movie;
  * Created by Hamid on 2/26/2017.
  */
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
@@ -23,11 +22,11 @@ public interface MoviesContract {
 
         void showMovies(List<Movie> movies);
 
+        void showErrorView();
+
         void showEmptyView();
 
         void showMovieDetailUi(long movieId);
-
-        Context getViewContext();
     }
 
     interface UserActionsListener {

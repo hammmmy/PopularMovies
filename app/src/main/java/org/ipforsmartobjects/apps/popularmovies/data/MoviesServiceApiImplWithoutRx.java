@@ -1,5 +1,7 @@
 package org.ipforsmartobjects.apps.popularmovies.data;
 
+import android.content.Context;
+
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 import org.ipforsmartobjects.apps.popularmovies.util.TheMovieDbApiHelper;
@@ -15,15 +17,12 @@ import retrofit2.Response;
  */
 
 public class MoviesServiceApiImplWithoutRx implements MoviesServiceApi {
-    private final RepositoryContract.MoviesRepositoryInteractor mInteractor;
 
     private final TheMovieDbApiHelper.TmDbApi mApi;
     private final String mApiKey;
 
-    public MoviesServiceApiImplWithoutRx(RepositoryContract.MoviesRepositoryInteractor interactor) {
-        mInteractor = interactor;
-
-        mApiKey = mInteractor.getViewContext().getString(R.string.tmdb_api_key);
+    public MoviesServiceApiImplWithoutRx(Context context) {
+        mApiKey = context.getString(R.string.tmdb_api_key);
         // retrofit 2 without Rx code
         mApi = TheMovieDbApiHelper.getApi();
     }
@@ -117,15 +116,16 @@ public class MoviesServiceApiImplWithoutRx implements MoviesServiceApi {
                 });
                 break;
             case Constants.FAVORITES:
-                // TODO: 4/27/2017
-                break;
+                throw new UnsupportedOperationException("Favorites are retrieved from DB only");
+
+            default:
+                throw new UnsupportedOperationException("unsupported sort order : " + sortOrder);
         }
 
     }
 
     @Override
     public void getMovie(long movieId, final MoviesServiceCallback<Movie> callback) {
-        // TODO: 3/5/2017 implement movie detail
         Call<Movie> movie = mApi.getMovieDetails(movieId, mApiKey);
 
         // retrofit 2 without Rx code

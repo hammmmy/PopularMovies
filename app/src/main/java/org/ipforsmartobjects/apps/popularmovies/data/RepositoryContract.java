@@ -1,6 +1,5 @@
 package org.ipforsmartobjects.apps.popularmovies.data;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
@@ -30,9 +29,5 @@ public interface RepositoryContract {
 
             void onLoadingFailed();
         }
-    }
-
-    interface MoviesRepositoryInteractor {
-        Context getViewContext();
     }
 }

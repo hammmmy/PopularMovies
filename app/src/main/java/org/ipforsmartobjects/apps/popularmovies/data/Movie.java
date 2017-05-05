@@ -89,11 +89,15 @@ public class Movie implements Parcelable {
     }
 
     public String getBackdropPath() {
-        return BACKDROP_BASE_URL + backdropPath;
+        return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
+    }
+
+    public String getFullBackdropPath() {
+        return BACKDROP_BASE_URL + backdropPath;
     }
 
     public String getGenreString() {
@@ -164,11 +168,15 @@ public class Movie implements Parcelable {
     }
 
     public String getPosterPath() {
-        return POSTER_BASE_URL + posterPath;
+        return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+    }
+
+    public String getFullPosterPath() {
+        return POSTER_BASE_URL + posterPath;
     }
 
     public String getReleaseDate() {
@@ -179,7 +187,15 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    public String getRuntime() {
+    public Long getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Long runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getFormattedRuntime() {
         if (runtime == null) {
             return "";
         }
@@ -187,10 +203,6 @@ public class Movie implements Parcelable {
         long minutes = runtime % 60;
 
         return "" + hours + "h " + minutes + "m";
-    }
-
-    public void setRuntime(Long runtime) {
-        this.runtime = runtime;
     }
 
     public String getStatus() {
@@ -217,12 +229,16 @@ public class Movie implements Parcelable {
         this.title = title;
     }
 
-    public String getVoteAverage() {
-        return "" + voteAverage + " / 10";
+    public Double getVoteAverage() {
+        return voteAverage;
     }
 
     public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+    public String getFormattedVoteAverage() {
+        return "" + voteAverage + " / 10";
     }
 
     public Long getVoteCount() {
@@ -319,6 +335,7 @@ public class Movie implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
 
     public static class Genre implements Parcelable {
 

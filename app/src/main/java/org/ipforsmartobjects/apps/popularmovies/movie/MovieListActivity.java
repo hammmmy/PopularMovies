@@ -1,6 +1,5 @@
 package org.ipforsmartobjects.apps.popularmovies.movie;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -16,7 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.ipforsmartobjects.apps.popularmovies.Injection;
 import org.ipforsmartobjects.apps.popularmovies.R;
+import org.ipforsmartobjects.apps.popularmovies.data.FavoritesLoader;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 import org.ipforsmartobjects.apps.popularmovies.databinding.ActivityMovieListBinding;
 import org.ipforsmartobjects.apps.popularmovies.detail.MovieDetailActivity;
@@ -52,9 +53,10 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     };
     private SharedPreferences mSharedPrefs;
     private View mListView;
-    private View mEmptyView;
+    private View mErrorView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ActivityMovieListBinding mBinding;
+    private View mEmptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         setSupportActionBar(mBinding.toolbar);
 
         mListView = mBinding.movieGridLayoutContainer.movieItemList;
+        mErrorView = mBinding.movieGridLayoutContainer.errorView;
         mEmptyView = mBinding.movieGridLayoutContainer.emptyView;
         mSwipeRefreshLayout = mBinding.movieGridLayoutContainer.refreshLayout;
         mSwipeRefreshLayout.setColorSchemeColors(
@@ -102,7 +105,10 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-        mActionsListener = new MoviesPresenter(this);
+
+        mActionsListener = new MoviesPresenter(this,
+                Injection.provideMoviesRepository(MovieListActivity.this),
+                getSupportLoaderManager(), new FavoritesLoader(this));
     }
 
     private
@@ -138,8 +144,15 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     @Override
     public void showMovies(List<Movie> movies) {
         mListView.setVisibility(View.VISIBLE);
+        mErrorView.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.GONE);
         mListAdapter.replaceData(movies);
+    }
+
+    @Override
+    public void showErrorView() {
+        mListView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -164,11 +177,6 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
             ActivityOptionsCompat trans = ActivityOptionsCompat.makeSceneTransitionAnimation(MovieListActivity.this);
             ActivityCompat.startActivity(MovieListActivity.this, intent, trans.toBundle());
         }
-    }
-
-    @Override
-    public Context getViewContext() {
-        return MovieListActivity.this;
     }
 
     private CharSequence getActivityTitle() {

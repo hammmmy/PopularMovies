@@ -5,12 +5,12 @@ To compile this project, insert your own [TMDB key](https://www.themoviedb.org/d
 
 The following concepts were used
 
-1. Model View Presenter (MVP): 
+### Model View Presenter (MVP): 
 
 This project uses [Model View Presenter](https://en.wikipedia.org/wiki/Model-view-presenter) Architecture. Reference : [Android Architecture Samples](https://github.com/googlesamples/android-architecture), [Android Testing Codelab](https://codelabs.developers.google.com/codelabs/android-testing/index.html)
 The features are seperated by packages i.e. [movie](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/movie) and [detail](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/detail). The View, Model, and Presenter are seperated . The interfaces between movie View and movie Presenter is [MoviesContract](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/movie/MoviesContract.java) and interface between detail View and detail Presenter is [MovieDetailContract](app/src/main/java/org/ipforsmartobjects/apps/popularmovies/detail/MovieDetailContract.java). Interface between Presenters and Repository is [RepositoryContact](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/data/RepositoryContract.java). 
 
-2. RxJava2 with Retrofit2
+### RxJava2 with Retrofit2
 
 [TheMovieDbApiHelper](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/util/TheMovieDbApiHelper.java) class defines interfaces for both Retrofit2 only movie info retrieval and RxJava with Retrofit2 movie info retrieval. RxJava2 implementation is in [MoviesServiceApiImpl](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/data/MoviesServiceApiImpl.java) and Retrofit2 only implementation is in [MoviesServiceApiImplWithoutRx](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/data/MoviesServiceApiImplWithoutRx.java) class. 
 To use Retrofit2 only include the following dependencies in [build.gradle](app/build.gradle):
@@ -55,24 +55,24 @@ b. add RxJava2 support and RetroFit2 adapter for rxJava2
     compile "io.reactivex.rxjava2:rxjava:${rxJava}"
 
 
-3. Android Data Binding
+### Android Data Binding
 
 I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Android Data Binding library](https://developer.android.com/topic/libraries/data-binding/index.html) is pretty stable now. I would recommend using the data binding library. To add data binding support use the following in the [build.gradle](app/build.gradle). I used it in [movie_list_item](/app/src/main/res/layout/movie_list_item.xml) and [movie_detail_view](/app/src/main/res/layout/movie_detail_view.xml) by just adding layout tag in them. 
 
 `<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"></layout>
- `   
+    xmlns:tools="http://schemas.android.com/tools"></layout>`
+
  and then accessed them in [MovieAdapter](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/movie/MovieAdapter.java) and [MovieDetailFragment](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/detail/MovieDetailFragment.java)
  
- 4. Injection
+### Injection
  
  Didn't use Dagger2. Just refered to [Android Testing Codelab](https://codelabs.developers.google.com/codelabs/android-testing/index.html)'s injection method for testability. 
  
- 5. AutoFitGridLayout
+### AutoFitGridLayout
  I referred to this [blog post](http://blog.sqisland.com/2014/12/recyclerview-autofit-grid.html) to create [AutoFitGridRecyclerView](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/util/AutoFitGridRecyclerView.java) util class in my project. 
  
- 6. Loading Images
+### Loading Images
  
  I used Picasso in [build.gradle](app/build.gradle), you guys may prefer Glide or any other relevant library.
  
@@ -83,31 +83,35 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
                 .into(viewHolder.mMovieViewBinding.posterThumbnail);
                 
   
- 7. Material Design
+### Material Design
  
  I tried to use a bit of material design in the project.
  
- 8. Palette
+### Palette
  
  I used Palette to get background and text colors in movie detail layout.
+
+### ContentProvider for Favorites
+
+ I used ContentProvider for loading favorites as required by the course
  
- 9. Disclaimer 
+### Disclaimer 
  
  The images in the projects are downloaded either from material.io or unsplash.com
  
- 10. Screenshots: 
+### Screenshots: 
  
  
-![Preview](screenshots/popular.png)
+![Preview](screenshots/popular.jpg)
 
 
-![Preview](screenshots/now_playing.png)
+![Preview](screenshots/favorites.jpg)
 
 
-![Preview](screenshots/detail.png)
+![Preview](screenshots/detail.jpg)
 
 
-![Preview](screenshots/detail2.png)
+![Preview](screenshots/detail2.jpg)
 
 
 ## License

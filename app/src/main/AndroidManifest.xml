@@ -40,6 +40,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".movie.MovieListActivity" />
         </activity>
+
+        <provider
+            android:name=".data.local.FavoritesProvider"
+            android:authorities="org.ipforsmartobjects.apps.popularmovies.data"
+            android:exported="false" />
     </application>
 
 </manifest>

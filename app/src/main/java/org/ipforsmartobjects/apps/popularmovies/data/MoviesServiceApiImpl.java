@@ -1,5 +1,7 @@
 package org.ipforsmartobjects.apps.popularmovies.data;
 
+import android.content.Context;
+
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.util.Constants;
 import org.ipforsmartobjects.apps.popularmovies.util.TheMovieDbApiHelper;
@@ -15,15 +17,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class MoviesServiceApiImpl implements MoviesServiceApi {
-    private final RepositoryContract.MoviesRepositoryInteractor mInteractor;
 
     private final TheMovieDbApiHelper.TmDbRxApi mApi;
     private final String mApiKey;
 
-    public MoviesServiceApiImpl(RepositoryContract.MoviesRepositoryInteractor interactor) {
-        mInteractor = interactor;
 
-        mApiKey = mInteractor.getViewContext().getString(R.string.tmdb_api_key);
+    public MoviesServiceApiImpl(Context context) {
+        mApiKey = context.getString(R.string.tmdb_api_key);
         mApi = TheMovieDbApiHelper.getRxApi();
     }
 
@@ -86,8 +86,10 @@ public class MoviesServiceApiImpl implements MoviesServiceApi {
                         });
                 break;
             case Constants.FAVORITES:
-                // TODO: 4/27/2017
-                break;
+                throw new UnsupportedOperationException("Favorites are retrieved from DB only");
+
+            default:
+                throw new UnsupportedOperationException("unsupported sort order : " + sortOrder);
         }
 
     }

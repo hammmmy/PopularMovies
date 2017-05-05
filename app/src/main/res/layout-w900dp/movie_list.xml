@@ -49,10 +49,21 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/empty_view"
+                android:id="@+id/error_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_centerInParent="true"
                 android:text="@string/loading_failed"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/no_favorite"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="gone" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>

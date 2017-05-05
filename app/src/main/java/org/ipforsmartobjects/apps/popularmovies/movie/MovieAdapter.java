@@ -45,7 +45,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Movie movie = mMovies.get(position);
 
-        Picasso.with(mContext).load(movie.getPosterPath())
+        Picasso.with(mContext).load(movie.getFullPosterPath())
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(viewHolder.mMovieViewBinding.posterThumbnail);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

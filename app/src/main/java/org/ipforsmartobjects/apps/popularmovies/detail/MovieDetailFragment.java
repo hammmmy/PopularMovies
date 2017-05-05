@@ -1,12 +1,10 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -20,6 +18,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import org.ipforsmartobjects.apps.popularmovies.Injection;
 import org.ipforsmartobjects.apps.popularmovies.R;
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 import org.ipforsmartobjects.apps.popularmovies.databinding.FragmentMovieDetailBinding;
@@ -46,7 +45,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     public static final String ARG_ITEM_ID = "item_id";
 
     private Movie mItem;
-    private long mItemId = -1;
+    private long mMovieId = -1;
     private MovieDetailContract.UserActionsListener mActionsListener;
     private CollapsingToolbarLayout mAppBarLayout;
 
@@ -71,10 +70,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActionsListener = new MovieDetailPresenter(this);
+        mActionsListener = new MovieDetailPresenter(this,
+                Injection.provideMoviesRepository(getActivity()),
+                getActivity().getContentResolver());
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getLong(ARG_ITEM_ID);
+            mMovieId = getArguments().getLong(ARG_ITEM_ID);
         }
 
     }
@@ -92,14 +93,13 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         final ImageView fab = mBinding.fab;
-        mActionsListener.openMovie(mItemId);
+        mActionsListener.openMovie(mMovieId);
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab.setImageResource(R.drawable.ic_star_on);
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mActionsListener.favoriteClicked();
             }
         });
 
@@ -114,12 +114,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Override
     public void showEmptyView() {
         mDetailView.setVisibility(View.GONE);
+        mBinding.fab.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showMovie(Movie movie) {
         mDetailView.setVisibility(View.VISIBLE);
+        mBinding.fab.setVisibility(View.VISIBLE);
         mEmptyView.setVisibility(View.GONE);
         mItem = movie;
         if (mAppBarLayout != null) {
@@ -162,7 +164,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                         ? new ArrayList<>(0) : movie.getVideos().getVideos());
         videoRecyclerView.setAdapter(mVideoAdapter);
 
-        Picasso.with(getActivity()).load(movie.getPosterPath())
+        Picasso.with(getActivity()).load(movie.getFullPosterPath())
                 .error(android.R.drawable.ic_menu_report_image)
 //                .into(mBinding.movieDetailViewLayout.poster);
                 .into(new Target() {
@@ -241,11 +243,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mBinding.movieDetailViewLayout.poster.setTransitionName("poster");
         }
-        Picasso.with(getActivity()).load(movie.getBackdropPath())
+        Picasso.with(getActivity()).load(movie.getFullBackdropPath())
                 .error(R.drawable.default_backdrop)
                 .into(mBinding.backdropImage);
-        mBinding.movieDetailViewLayout.ranking.setText(movie.getVoteAverage());
-        mBinding.movieDetailViewLayout.duration.setText(movie.getRuntime());
+        mBinding.movieDetailViewLayout.ranking.setText(movie.getFormattedVoteAverage());
+        mBinding.movieDetailViewLayout.duration.setText(movie.getFormattedRuntime());
         mBinding.movieDetailViewLayout.genre.setText(movie.getGenreString());
         mBinding.movieDetailViewLayout.releaseDate.setText(movie.getReleaseDate());
         mBinding.movieDetailViewLayout.tagline.setText(movie.getTagline());
@@ -254,7 +256,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     @Override
-    public Context getViewContext() {
-        return getActivity();
+    public void showFavoriteState(boolean state) {
+        if (state) {
+            mBinding.fab.setImageResource(R.drawable.ic_star_on);
+        } else {
+            mBinding.fab.setImageResource(R.drawable.ic_star_off);
+        }
     }
 }

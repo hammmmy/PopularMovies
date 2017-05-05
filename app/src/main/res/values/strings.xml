@@ -3,6 +3,7 @@
     <string name="app_name">Popular Movies</string>
     <string name="title_movie_item_detail">MovieItem Detail</string>
     <string name="loading_failed">Loading Failed. Refresh to load again</string>
+    <string name="no_favorite">No Favorites</string>
     <string name="loading_failed_detail">Loading Failed</string>
     <string name="trailers">Trailers</string>
     <string name="story_line">Story Line</string>

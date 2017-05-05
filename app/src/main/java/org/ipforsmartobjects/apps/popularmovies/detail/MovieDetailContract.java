@@ -1,7 +1,5 @@
 package org.ipforsmartobjects.apps.popularmovies.detail;
 
-import android.content.Context;
-
 import org.ipforsmartobjects.apps.popularmovies.data.Movie;
 
 /**
@@ -18,10 +16,13 @@ public interface MovieDetailContract {
 
         void showMovie(Movie movie);
 
-        Context getViewContext();
+        void showFavoriteState(boolean state);
+
     }
 
     interface UserActionsListener {
         void openMovie(long movieId);
+
+        void favoriteClicked();
     }
 }
