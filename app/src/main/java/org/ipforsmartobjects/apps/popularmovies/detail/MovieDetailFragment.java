@@ -109,19 +109,18 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Override
     public void setProgressIndicator(boolean active) {
         mProgressBar.setVisibility(active ? View.VISIBLE : View.GONE);
+        mBinding.fab.setVisibility(active ? View.GONE : View.VISIBLE);
     }
 
     @Override
     public void showEmptyView() {
         mDetailView.setVisibility(View.GONE);
-        mBinding.fab.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showMovie(Movie movie) {
         mDetailView.setVisibility(View.VISIBLE);
-        mBinding.fab.setVisibility(View.VISIBLE);
         mEmptyView.setVisibility(View.GONE);
         mItem = movie;
         if (mAppBarLayout != null) {

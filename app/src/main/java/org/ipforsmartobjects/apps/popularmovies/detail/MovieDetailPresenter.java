@@ -42,6 +42,8 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
         }
 
         mMoviesDetailView.setProgressIndicator(true);
+        boolean favoriteState = isFavorite(movieId);
+        mMoviesDetailView.showFavoriteState(favoriteState);
         mMoviesRepository.getMovie(movieId, new RepositoryContract.MoviesRepository.GetMovieCallback() {
             @Override
             public void onMovieLoaded(Movie movie) {
@@ -50,9 +52,8 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
                     mMoviesDetailView.showEmptyView();
                 } else {
                     mMovie = movie;
-                    boolean favoriteState = isFavorite(movie.getId());
                     mMoviesDetailView.showMovie(movie);
-                    mMoviesDetailView.showFavoriteState(favoriteState);
+
                 }
             }
 
@@ -67,24 +68,24 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
     @Override
     public void favoriteClicked() {
         boolean newState = !isFavorite(mMovieId);
-        setFavorite(mMovie, newState);
+        setFavorite(newState);
         mMoviesDetailView.showFavoriteState(newState);
     }
 
-    public void setFavorite(Movie movie, boolean enable) {
+    public void setFavorite(boolean enable) {
 
         if (enable) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ID, Long.toString(movie.getId()));
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_TITLE, movie.getTitle());
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ADULT, movie.getAdult() == true ? 1 : 0);
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ORIGINAL_LANGUAGE, movie.getOriginalLanguage());
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_POSTER_PATH, movie.getPosterPath());
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_RELEASE_DATE, movie.getReleaseDate());
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_VOTE_AVERAGE, movie.getVoteAverage());
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ID, Long.toString(mMovie.getId()));
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_TITLE, mMovie.getTitle());
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ADULT, mMovie.getAdult() == true ? 1 : 0);
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ORIGINAL_LANGUAGE, mMovie.getOriginalLanguage());
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_POSTER_PATH, mMovie.getPosterPath());
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_RELEASE_DATE, mMovie.getReleaseDate());
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_VOTE_AVERAGE, mMovie.getVoteAverage());
             boolean success = mContentResolver.insert(FavoritesPersistenceContract.CONTENT_URI, contentValues) != null;
         } else {
-            boolean success = mContentResolver.delete(ContentUris.withAppendedId(FavoritesPersistenceContract.CONTENT_URI, movie.getId()), null, null) > 0;
+            boolean success = mContentResolver.delete(ContentUris.withAppendedId(FavoritesPersistenceContract.CONTENT_URI, mMovieId), null, null) > 0;
         }
 
     }
