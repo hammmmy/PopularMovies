@@ -102,16 +102,16 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
 ### Screenshots: 
  
  
-![Preview](screenshots/popular.jpg)
+![Preview](screenshots/popular.png)
 
 
-![Preview](screenshots/favorites.jpg)
+![Preview](screenshots/detail.png)
 
 
-![Preview](screenshots/detail.jpg)
+![Preview](screenshots/detail2.png)
 
 
-![Preview](screenshots/detail2.jpg)
+![Preview](screenshots/now_playing.png)
 
 
 ## License
