@@ -18,7 +18,7 @@ import java.util.List;
 
 public class FavoritesLoader extends AsyncTaskLoader<List<Movie>> {
 
-    List<Movie> mMovieList = null;
+    private List<Movie> mMovieList = null;
     private ContentObserver mFavoritesObserver;
 
     public FavoritesLoader(Context context) {

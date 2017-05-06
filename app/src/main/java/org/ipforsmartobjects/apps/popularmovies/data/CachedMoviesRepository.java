@@ -79,8 +79,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                 break;
 
             case Constants.FAVORITES:
-                // TODO: 3/25/2017   add favorites for project 2
-                break;
+                throw new UnsupportedOperationException("Favorites are to be fetched from FavoritesProvider");
         }
 
     }
@@ -117,7 +116,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                     }
 
                 } else if (sortOrder == Constants.FAVORITES) {
-                    throw new UnsupportedOperationException("Favorites have to be retrived from db");
+                    throw new UnsupportedOperationException("Favorites have to be retrieved from db");
                 }
             }
 

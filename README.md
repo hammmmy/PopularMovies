@@ -67,7 +67,7 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
  
 ### Injection
  
- Didn't use Dagger2. Just refered to [Android Testing Codelab](https://codelabs.developers.google.com/codelabs/android-testing/index.html)'s injection method for testability. 
+ Didn't use Dagger2. Just referred to [Android Testing Codelab](https://codelabs.developers.google.com/codelabs/android-testing/index.html)'s injection method for testability. Unit and Instrument tests are not added yet though. 
  
 ### AutoFitGridLayout
  I referred to this [blog post](http://blog.sqisland.com/2014/12/recyclerview-autofit-grid.html) to create [AutoFitGridRecyclerView](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/util/AutoFitGridRecyclerView.java) util class in my project. 
@@ -83,17 +83,17 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
                 .into(viewHolder.mMovieViewBinding.posterThumbnail);
                 
   
-### Material Design
+### Material Design and Color Palette
  
- I tried to use a bit of material design in the project.
- 
-### Palette
- 
- I used Palette to get background and text colors in movie detail layout.
+ I used Palette to get background and text colors in movie detail layout. I also tried to use a bit of material design in the project.
 
-### ContentProvider for Favorites
+### ContentProvider
 
- I used ContentProvider for loading favorites as required by the course
+ I used ContentProvider for loading favorites as required by the course. 
+
+### Tablet Layout
+
+ To distinguish between Tablet and Phone Layouts I added `movie_item_detail_container` in [res/layout-w900dp/movie_list.xml](app/src/main/res/layout-w900dp/movie_list.xml) which was not present in [phone layout](app/src/main/res/layout/movie_list.xml). The tablet layout loaded the detail fragment in `movie_item_detail_container` and the phone layout loads the detail fragment in [MovieDetailActivity](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/detail/MovieDetailActivity.java). You can refer to the implementation in [MovieListActivity](/app/src/main/java/org/ipforsmartobjects/apps/popularmovies/movie/MovieListActivity.java). Loader and ContentObserver is required for Tablet layouts where favorites can be added or removed right from the detail layout.
  
 ### Disclaimer 
  
@@ -105,13 +105,16 @@ I used to use [ButterKnife](http://jakewharton.github.io/butterknife/) but [Andr
 ![Preview](screenshots/popular.png)
 
 
+![Preview](screenshots/tablet.png)
+
+
+![Preview](screenshots/tablet_land.png)
+
+
 ![Preview](screenshots/detail.png)
 
 
 ![Preview](screenshots/detail2.png)
-
-
-![Preview](screenshots/now_playing.png)
 
 
 ## License

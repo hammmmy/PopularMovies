@@ -46,6 +46,7 @@
             android:layout_weight="3"
             android:background="@color/colorPrimaryDark"
             tools:ignore="InconsistentLayout">
+
             <TextView
                 android:id="@+id/empty_detail_view"
                 android:layout_width="match_parent"

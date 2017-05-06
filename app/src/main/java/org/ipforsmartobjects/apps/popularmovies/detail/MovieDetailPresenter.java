@@ -72,7 +72,7 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
         mMoviesDetailView.showFavoriteState(newState);
     }
 
-    public void setFavorite(boolean enable) {
+    private void setFavorite(boolean enable) {
 
         if (enable) {
             ContentValues contentValues = new ContentValues();
@@ -83,14 +83,14 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_POSTER_PATH, mMovie.getPosterPath());
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_RELEASE_DATE, mMovie.getReleaseDate());
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_VOTE_AVERAGE, mMovie.getVoteAverage());
-            boolean success = mContentResolver.insert(FavoritesPersistenceContract.CONTENT_URI, contentValues) != null;
+            mContentResolver.insert(FavoritesPersistenceContract.CONTENT_URI, contentValues);
         } else {
-            boolean success = mContentResolver.delete(ContentUris.withAppendedId(FavoritesPersistenceContract.CONTENT_URI, mMovieId), null, null) > 0;
+            mContentResolver.delete(ContentUris.withAppendedId(FavoritesPersistenceContract.CONTENT_URI, mMovieId), null, null);
         }
 
     }
 
-    public boolean isFavorite(Long movieId) {
+    private boolean isFavorite(Long movieId) {
         Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(FavoritesPersistenceContract.CONTENT_URI, movieId),
                 null,
                 null,
