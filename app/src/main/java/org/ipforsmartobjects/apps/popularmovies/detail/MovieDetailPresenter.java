@@ -78,7 +78,7 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
             ContentValues contentValues = new ContentValues();
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ID, Long.toString(mMovie.getId()));
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_TITLE, mMovie.getTitle());
-            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ADULT, mMovie.getAdult() == true ? 1 : 0);
+            contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ADULT, mMovie.getAdult() ? 1 : 0);
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_ORIGINAL_LANGUAGE, mMovie.getOriginalLanguage());
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_POSTER_PATH, mMovie.getPosterPath());
             contentValues.put(FavoritesPersistenceContract.TableFavorites.COL_RELEASE_DATE, mMovie.getReleaseDate());
@@ -97,6 +97,10 @@ public class MovieDetailPresenter implements MovieDetailContract.UserActionsList
                 null,
                 null);
 
-        return (cursor != null && cursor.getCount() > 0);
+        boolean ret = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            cursor.close();
+        }
+        return ret;
     }
 }

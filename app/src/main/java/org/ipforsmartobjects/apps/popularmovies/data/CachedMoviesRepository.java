@@ -117,7 +117,7 @@ public class CachedMoviesRepository implements RepositoryContract.MoviesReposito
                     }
 
                 } else if (sortOrder == Constants.FAVORITES) {
-                    // TODO: 3/25/2017 add favorites for project 2
+                    throw new UnsupportedOperationException("Favorites have to be retrived from db");
                 }
             }
 

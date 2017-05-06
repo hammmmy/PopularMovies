@@ -15,7 +15,6 @@ public class Constants {
     public static final int UPCOMING = 3;
     public static final int NOW_PLAYING = 4;
     public static final int FAVORITES = 5;
-    public static final String DETAIL_MOVIE_ID = "detail_movie_id";
     public static final String SORT_ORDER = "sort_order";
 
     @Retention(RetentionPolicy.SOURCE)

@@ -147,6 +147,12 @@ public class FavoritesProvider extends ContentProvider {
 
         int noOfDeletedRows;
         switch (match) {
+            case FAVORITES:
+                noOfDeletedRows = db.delete(FavoritesPersistenceContract.TABLE_FAVORITES, selection, selectionArgs);
+                if (noOfDeletedRows == 0) {
+                    throw new SQLException("Failed to delete " + uri);
+                }
+                break;
             case FAVORITES_WITH_ID:
                 final int INDEX_OF_ID_TOKEN = 1;
                 String id = uri.getPathSegments().get(INDEX_OF_ID_TOKEN);
@@ -163,10 +169,14 @@ public class FavoritesProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown URI : " + uri);
         }
 
-        // notify change
+        // notify change on id
         ContentResolver resolver = getContext().getContentResolver();
         if (resolver != null) {
             resolver.notifyChange(uri, null);
+//            if (match == FAVORITES_WITH_ID) {
+//                // in case of uri with id, notifying the main uri too
+//                resolver.notifyChange(FavoritesPersistenceContract.CONTENT_URI, null);
+//            }
         }
         return noOfDeletedRows;
     }

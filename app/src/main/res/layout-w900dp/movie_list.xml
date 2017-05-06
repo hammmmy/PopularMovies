@@ -2,11 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:baselineAligned="false"
         android:divider="?android:attr/dividerHorizontal"
         android:orientation="horizontal"
@@ -19,52 +18,67 @@
 
         -->
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="@dimen/item_width"
             android:layout_height="match_parent">
 
-            <org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView
-                android:id="@+id/movie_item_list"
-                android:name="org.ipforsmartobjects.apps.popularmovies.MovieItemListFragment"
-                android:layout_width="@dimen/item_width"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:layoutManager="GridLayoutManager"
-                tools:context="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity"
-                tools:listitem="@layout/movie_list_item" />
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/movie_item_detail_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                tools:ignore="InconsistentLayout" />
+                <org.ipforsmartobjects.apps.popularmovies.util.AutoFitGridRecyclerView
+                    android:id="@+id/movie_item_list"
+                    android:name="org.ipforsmartobjects.apps.popularmovies.MovieItemListFragment"
+                    android:layout_width="@dimen/item_width"
+                    android:layout_height="match_parent"
+                    android:columnWidth="@dimen/movie_item_column_width"
+                    app:layoutManager="GridLayoutManager"
+                    tools:context="org.ipforsmartobjects.apps.popularmovies.movie.MovieListActivity"
+                    tools:listitem="@layout/movie_list_item" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/progress"
+        <FrameLayout
+            android:id="@+id/movie_item_detail_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/colorPrimaryDark"
+            tools:ignore="InconsistentLayout">
+            <TextView
+                android:id="@+id/empty_detail_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone" />
+                android:layout_gravity="center"
+                android:text="@string/empty_detail_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        </FrameLayout>
 
-            <TextView
-                android:id="@+id/error_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="@string/loading_failed"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:visibility="gone" />
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/empty_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/no_favorite"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:visibility="gone" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:id="@+id/error_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="@string/loading_failed"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="@string/no_favorite"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:visibility="gone" />
+
     </LinearLayout>
+
 </layout>

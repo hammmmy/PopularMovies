@@ -1,7 +1,9 @@
 package org.ipforsmartobjects.apps.popularmovies.data;
 
 import android.content.Context;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.os.Handler;
 import android.support.v4.content.AsyncTaskLoader;
 
 import org.ipforsmartobjects.apps.popularmovies.data.local.FavoritesPersistenceContract;
@@ -11,28 +13,46 @@ import java.util.List;
 
 /**
  * Created by Hamid on 5/5/2017.
+ * Reference: http://www.androiddesignpatterns.com/2012/08/implementing-loaders.html
  */
 
 public class FavoritesLoader extends AsyncTaskLoader<List<Movie>> {
-    Context mContext;
+
+    List<Movie> mMovieList = null;
+    private ContentObserver mFavoritesObserver;
 
     public FavoritesLoader(Context context) {
         super(context);
-        mContext = context;
     }
 
     @Override
     protected void onStartLoading() {
-        forceLoad();
+        if (mMovieList != null) {
+            deliverResult(mMovieList);
+        }
+
+        if (mFavoritesObserver == null) {
+            mFavoritesObserver = new ContentObserver(new Handler()) {
+                @Override
+                public void onChange(boolean selfChange) {
+                    onContentChanged();
+                    super.onChange(selfChange);
+                }
+            };
+            getContext().getContentResolver().registerContentObserver(FavoritesPersistenceContract.CONTENT_URI, true, mFavoritesObserver);
+        }
+
+        if (takeContentChanged() || mMovieList == null) {
+            forceLoad();
+        }
+
     }
 
     @Override
     public List<Movie> loadInBackground() {
         List<Movie> movies = new ArrayList<>();
         try {
-
-
-            Cursor c = mContext.getContentResolver().query(FavoritesPersistenceContract.CONTENT_URI,
+            Cursor c = getContext().getContentResolver().query(FavoritesPersistenceContract.CONTENT_URI,
                     null,
                     null,
                     null,
@@ -65,5 +85,37 @@ public class FavoritesLoader extends AsyncTaskLoader<List<Movie>> {
             e.printStackTrace();
         }
         return movies;
+    }
+
+    @Override
+    public void deliverResult(List<Movie> data) {
+        if (isReset()) {
+            mMovieList = null;
+        } else if (isStarted()) {
+            super.deliverResult(data);
+            mMovieList = data;
+        }
+    }
+
+    @Override
+    protected void onStopLoading() {
+        // The Loader is in a stopped state, so we should attempt to cancel the
+        // current load (if there is one).
+        cancelLoad();
+
+        // Note that we leave the observer as is. Loaders in a stopped state
+        // should still monitor the data source for changes so that the Loader
+        // will know to force a new load if it is ever started again.
+    }
+
+    @Override
+    protected void onReset() {
+        mMovieList = null;
+        // Stop watching for favorite changes
+        if (mFavoritesObserver != null) {
+            getContext().getContentResolver().unregisterContentObserver(mFavoritesObserver);
+            mFavoritesObserver = null;
+        }
+
     }
 }

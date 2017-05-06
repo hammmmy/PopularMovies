@@ -57,6 +57,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ActivityMovieListBinding mBinding;
     private View mEmptyView;
+    private View mTabletDetailView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,8 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         recyclerView.setItemViewCacheSize(20); // for faster scroll (?)
         setupRecyclerView(recyclerView);
 
-        if (findViewById(R.id.movie_item_detail_container) != null) {
+        mTabletDetailView = findViewById(R.id.movie_item_detail_container);
+        if (mTabletDetailView != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -146,6 +148,7 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
         mListView.setVisibility(View.VISIBLE);
         mErrorView.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.GONE);
+        if (mTwoPane) mTabletDetailView.setVisibility(View.VISIBLE);
         mListAdapter.replaceData(movies);
     }
 
@@ -153,19 +156,21 @@ public class MovieListActivity extends AppCompatActivity implements MoviesContra
     public void showErrorView() {
         mListView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.VISIBLE);
+        if (mTwoPane) mTabletDetailView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showEmptyView() {
         mListView.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
+        if (mTwoPane) mTabletDetailView.setVisibility(View.GONE);
     }
 
     @Override
     public void showMovieDetailUi(long movieId) {
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putLong(Constants.DETAIL_MOVIE_ID, movieId);
+            arguments.putLong(MovieDetailFragment.ARG_ITEM_ID, movieId);
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
