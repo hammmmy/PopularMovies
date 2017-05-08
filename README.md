@@ -1,3 +1,5 @@
+![Travis-ci](https://travis-ci.org/hammmmy/PopularMovies.svg?branch=master)
+
 # Popular Movies
 Popular Movies app for Android Nanodegree
 
