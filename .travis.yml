@@ -8,7 +8,7 @@ android:
 script:
         - ./gradlew build
 before_install:
-        - chmod +x gradlew
+  gradle -b wrapper.gradle wrapper
 branches:
         only:
                 - master
