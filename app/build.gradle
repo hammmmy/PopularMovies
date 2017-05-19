@@ -42,7 +42,7 @@ ext {
     googlePlayServicesVersion = '10.0.1'
     firebaseVersion = '10.0.1'
     picassoVersion = '2.5.2'
-    retrofitVersion = '2.2.0'
+    retrofitVersion = '2.3.0'
     gsonVersion = '2.8.0'
     guavaVersion = '18.0'
     rxAndroid = '2.0.1'
